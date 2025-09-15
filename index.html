@@ -2,142 +2,293 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intel: Sustainability Through the Ages</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Intel — Sustainability Journey</title>
+
+
+  <style>
+    /* =========================
+       Intel-y color variables
+       ========================= */
+    :root{
+      --intel-blue: #0068B5;       /* classic Intel blue */
+      --intel-blue-dark: #053661;  /* deep blue for contrast */
+      --ink: #0b1220;              /* dark text */
+      --bg: #f6f8fb;               /* light page background */
+      --card: #ffffff;             /* card background */
+      --muted: #6b7280;            /* secondary text */
+      --ring: #9cc9ff;             /* focus ring */
+      --shadow: 0 6px 20px rgba(0,0,0,.12);
+    }
+
+    /* Basic reset */
+    *, *::before, *::after{ box-sizing: border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink); background: var(--bg);
+    }
+    img{ max-width:100%; display:block; }
+
+    /* =========================
+       Hero (Header) Section
+       ========================= */
+    header.hero{
+      color:#fff;
+      background: radial-gradient(1200px 500px at 15% 20%, #148be9 0%, var(--intel-blue) 50%, var(--intel-blue-dark) 100%);
+      padding: clamp(24px, 5vw, 56px) 16px;
+    }
+    .hero .container{ max-width:1100px; margin:0 auto; display:flex; align-items:center; gap: clamp(16px, 4vw, 40px); }
+    .hero .brand{ flex:0 0 auto; }
+    .hero .brand img{ width: clamp(120px, 18vw, 200px); height:auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,.25)); }
+    .hero .copy{ flex: 1 1 auto; min-width: 260px; }
+    .hero h1{ margin:0 0 8px; font-weight:800; letter-spacing:.3px; line-height:1.15; font-size: clamp(24px, 4.4vw, 44px); }
+    .hero p{ margin:0; color:#e6f1ff; max-width: 70ch; font-size: clamp(14px, 2.2vw, 18px); }
+
+    /* =========================
+       Timeline wrapper
+       - Horizontal on large screens (scrollable)
+       - Vertical stack on small screens
+       ========================= */
+    .timeline-wrap{ max-width: 1100px; margin: 18px auto 28px; padding: 0 16px; }
+
+    .timeline{
+      /* Horizontal row */
+      display:flex; gap: 16px; align-items: stretch;
+      overflow-x:auto; overflow-y:hidden; padding: 8px 4px 18px;
+      scroll-snap-type: x mandatory; /* ✅ LevelUp: scroll snap */
+      scroll-behavior: smooth;
+    }
+    .timeline::-webkit-scrollbar{ height:10px; }
+    .timeline::-webkit-scrollbar-thumb{ background:#cfd8e3; border-radius:6px; }
+
+    /* Individual cards */
+    .card{
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid #e6ebf2;
+      width: clamp(280px, 38vw, 340px);
+      flex: 0 0 auto; /* Do not shrink, keep fixed width in the row */
+      scroll-snap-align: start; /* aligns to left edge when scrolling */
+      overflow: hidden; /* round corners for children */
+      transition: transform .18s ease, box-shadow .18s ease;
+      position: relative;
+    }
+    .card:focus-within{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
+
+    /* LevelUp: subtle transform + shadow on hover */
+    .card:hover{
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(0,0,0,.15);
+    }
+
+    .media{ aspect-ratio: 16 / 9; background: linear-gradient(135deg, #e8f3ff, #d7eaff); }
+    .media img{ width:100%; height:100%; object-fit: cover; }
+
+    .pad{ padding: 14px 16px 18px; }
+    .eyebrow{ margin:0 0 4px; font-weight:700; color: var(--intel-blue-dark); font-size: 12px; letter-spacing:.1em; text-transform: uppercase; }
+    .title{ margin:2px 0 6px; font-size: 18px; line-height:1.25; }
+    .summary{ margin:0; color:var(--muted); font-size: 14px; }
+
+    /* Hide details at first; reveal on hover/focus */
+    .more{
+      max-height: 0; overflow: hidden;
+      opacity: 0; transform: translateY(-4px);
+      transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+    }
+    .card:hover .more, .card:focus-within .more{
+      max-height: 240px; /* enough to show all typical content */
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* Hint below the timeline */
+    .hint{ text-align:center; color:#4b5563; font-size:14px; margin:4px 0 26px; }
+
+    /* ===============
+       Responsive: stack vertically on small screens
+       =============== */
+    @media (max-width: 760px){
+      .timeline{ flex-direction: column; overflow: visible; scroll-snap-type: none; }
+      .card{ width: 100%; }
+      .hero .container{ flex-direction: column; text-align:center; }
+      .hero .copy{ max-width: 700px; }
+    }
+
+    /* Accessibility: respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .card, .timeline{ scroll-behavior: auto; }
+      .card{ transition: none; }
+      .more{ transition: none; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Header / Hero Section -->
-  <header>
-    <div>
-      <!-- Ask Copilot to teach you about `.svg`. 🙂 You'll need to resize the logo with CSS. -->
-      <img src="img/intel-header-logo.svg" alt="Intel Logo" />
-      <!-- Main Heading -->
-      <h1>
-        Sustainability Through the Ages
-      </h1>
-
-      <!-- Subheading / Description -->
-      <p>
-        Explore Intel's journey through time, discovering how our commitment
-        to innovation has shaped a more sustainable future for technology 
-        and our planet.
-      </p>
+  <!-- =========================
+       HERO
+       ========================= -->
+  <header class="hero" role="banner">
+    <div class="container">
+      <div class="brand" aria-hidden="true">
+        <!-- Keep this logo in /img/intel-header-logo.svg (already in your repo) -->
+        <img src="img/intel-header-logo.svg" alt="Intel" />
+      </div>
+      <div class="copy">
+        <h1>Intel's Sustainability Journey</h1>
+        <p>
+          A timeline of key goals and milestones as Intel works toward a
+          lower‑carbon, more responsible future in semiconductor design and manufacturing.
+        </p>
+      </div>
     </div>
   </header>
 
-  <!-- Timeline Cards Section -->
-  <section>
+  <!-- =========================
+       TIMELINE
+       - Horizontal on desktop, vertical on mobile
+       - Each card reveals MORE info on hover/focus
+       ========================= -->
+  <main class="timeline-wrap" id="timeline">
+    <section class="timeline" aria-label="Intel sustainability timeline">
 
-    <!-- Card 1: 1968 -->
-    <div>
-      <h2>1968</h2>
-      <h3>Intel Founded</h3>
-      <!-- Add image -->
-      <p>
-        Robert Noyce and Gordon Moore rename the newly formed company 
-        NM Electronics to Intel Corporation, laying the foundation for 
-        decades of technological innovation.
-      </p>
-    </div>
+      <!-- CARD 1 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/1.jpg" alt="Solar panels and blue sky" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2020</p>
+          <h3 class="title">Renewable Momentum</h3>
+          <p class="summary">Intel expands renewable electricity purchases and sets ambitious 2030 goals.</p>
+          <div class="more">
+            <p>Focus areas include energy efficiency, greenhouse gas reductions, and water stewardship programs across global sites.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 2: 1971 -->
-    <div>
-      <h2>1971</h2>
-      <h3>First Microprocessor</h3>
-      <!-- Add image -->
-      <p>
-        Intel debuts the 4004, the world's first commercial microprocessor, 
-        igniting the microprocessor revolution and propelling the future 
-        of computing devices.
-      </p>
-    </div>
+      <!-- CARD 2 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/2.jpg" alt="Modern factory with clean lines" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2021</p>
+          <h3 class="title">Greener Manufacturing</h3>
+          <p class="summary">Pilot projects reduce process emissions and improve material reuse.</p>
+          <div class="more">
+            <p>Supplier collaboration ramps up to track carbon, and design teams prioritize power‑efficient chips.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 3: 1978 -->
-    <div>
-      <h2>1978</h2>
-      <h3>8086 Processor</h3>
-      <!-- Add image -->
-      <p>
-        Launch of the 8086 processor, establishing the x86 architecture 
-        that drives countless PCs and servers in the modern era.
-      </p>
-    </div>
+      <!-- CARD 3 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/3.jpg" alt="Data center racks with cool tones" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2022</p>
+          <h3 class="title">Efficient Computing</h3>
+          <p class="summary">Design guidance helps customers build energy‑aware systems at scale.</p>
+          <div class="more">
+            <p>Documentation and reference designs highlight performance‑per‑watt and thermal best practices.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 4: 1985 -->
-    <div>
-      <h2>1985</h2>
-      <h3>386 Processor</h3>
-      <!-- Add image -->
-      <p>
-        Intel introduces the 386 processor with 32-bit architecture, 
-        ushering in a new era of performance and multitasking for 
-        personal computers.
-      </p>
-    </div>
+      <!-- CARD 4 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/4.jpg" alt="Close‑up of silicon wafer" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2023</p>
+          <h3 class="title">Materials & Water</h3>
+          <p class="summary">Progress continues on reclaiming water and sourcing safer chemistries.</p>
+          <div class="more">
+            <p>Sites invest in on‑site water restoration and partner on circular material streams.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 5: 2006 -->
-    <div>
-      <h2>2006</h2>
-      <h3>Peak GHG Emissions</h3>
-      <!-- Add image -->
-      <p>
-        This year marks Intel's highest annual greenhouse gas emissions 
-        for operations. Over subsequent years, Intel invests heavily in 
-        chemical abatement, renewable energy, and energy-efficient 
-        manufacturing to reverse this trend.
-      </p>
-    </div>
+      <!-- CARD 5 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/1.jpg" alt="Wind turbines on a ridge" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2024</p>
+          <h3 class="title">Sustainability Summit</h3>
+          <p class="summary">Intel convenes partners to accelerate low‑carbon manufacturing.</p>
+          <div class="more">
+            <p>Suppliers, researchers, and policy leaders share roadmaps for next‑gen processes and greener fabs.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 6: 2020 -->
-    <div>
-      <h2>2020</h2>
-      <h3>RISE Strategy</h3>
-      <!-- Add image -->
-      <p>
-        Intel launches its RISE (Responsible, Inclusive, Sustainable, 
-        Enabling) strategy and 2030 goals, aiming to drive industry-wide 
-        progress on climate action, water stewardship, and waste reduction.
-      </p>
-    </div>
+      <!-- CARD 6 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/2.jpg" alt="City skyline with efficient lighting" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2025</p>
+          <h3 class="title">Design for Efficiency</h3>
+          <p class="summary">Expanded guidance for platform‑level power management and cooling.</p>
+          <div class="more">
+            <p>Open resources demonstrate telemetry‑driven savings and thermal design patterns.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 7: 2022 -->
-    <div>
-      <h2>2022</h2>
-      <h3>Net-Zero By 2040</h3>
-      <!-- Add image -->
-      <p>
-        Intel announces its commitment to achieve net-zero greenhouse 
-        gas emissions (Scope 1 and 2) across its global operations 
-        by 2040, building on years of environmental initiatives.
-      </p>
-    </div>
+      <!-- CARD 7 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/3.jpg" alt="Servers with cool lighting" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2026</p>
+          <h3 class="title">Lower‑Carbon Supply Chain</h3>
+          <p class="summary">Deeper supplier engagement improves transparency and reporting.</p>
+          <div class="more">
+            <p>Shared targets and tools help reduce upstream emissions for silicon and packaging.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 8: 2023 -->
-    <div>
-      <h2>2023</h2>
-      <h3>Renewable Electricity</h3>
-      <!-- Add image -->
-      <p>
-        The company achieves 99% renewable electricity usage worldwide, 
-        helping to drastically lower carbon emissions and driving progress 
-        toward Intel's long-term sustainability goals.
-      </p>
-    </div>
+      <!-- CARD 8 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/4.jpg" alt="Macro shot of circuitry" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2027</p>
+          <h3 class="title">Circularity in Focus</h3>
+          <p class="summary">Programs to extend product life and reclaim materials keep growing.</p>
+          <div class="more">
+            <p>From packaging to equipment, more parts are designed for reuse, repair, and recycling.</p>
+          </div>
+        </div>
+      </article>
 
-    <!-- Card 9: 2024 -->
-    <div>
-      <h2>2024</h2>
-      <h3>Sustainability Summit</h3>
-      <!-- Add image -->
-      <p>
-        Intel hosts its first Sustainability Summit, uniting suppliers, 
-        government officials, and industry leaders to collaborate on 
-        next-generation sustainable semiconductor manufacturing.
-      </p>
-    </div>
-  </section>
-  <p>Scroll to view timeline | Hover over cards to learn more!</p>
+      <!-- CARD 9 -->
+      <article class="card" tabindex="0">
+        <figure class="media">
+          <img src="img/1.jpg" alt="Sunrise over manufacturing campus" />
+        </figure>
+        <div class="pad">
+          <p class="eyebrow">2030 Goal</p>
+          <h3 class="title">Toward Net Positive</h3>
+          <p class="summary">Intel targets ambitious 2030 objectives across energy, water, and waste.</p>
+          <div class="more">
+            <p>These goals guide ongoing investments in clean energy, water restoration, and sustainable operations worldwide.</p>
+          </div>
+        </div>
+      </article>
+
+    </section>
+    <p class="hint">Tip: On desktop, scroll sideways to explore. On phone, cards stack vertically. Hover or focus a card to reveal more.</p>
+  </main>
+
 </body>
 </html>
