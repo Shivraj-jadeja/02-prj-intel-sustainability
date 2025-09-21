@@ -14,6 +14,53 @@ html { scroll-behavior: smooth; }
   --shadow: 0 6px 20px rgba(0,0,0,.12);
 }
 
+/* === Strict equal height cards (fixed) === */
+:root{
+  --card-fix-sm: 20rem;
+  --card-fix-md: 22rem;
+  --card-fix-lg: 24rem;
+}
+
+/* Apply a fixed height */
+#sustainability-pillars .card,
+.content-band .timeline .card {
+  display: flex;
+  flex-direction: column;
+  height: var(--card-fix-sm);
+  overflow: hidden; /* prevent layout shift */
+}
+
+/* Ensure inner content can scroll if it overflows */
+#sustainability-pillars .card .card-body,
+.content-band .timeline .card .pad {
+  min-height: 0;            /* required so child can shrink */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#sustainability-pillars .card .card-text,
+.content-band .timeline .card .summary {
+  flex: 1 1 auto;
+  overflow: auto;           /* only the text area scrolls if too long */
+}
+
+.content-band .timeline .card .media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+@media (min-width: 768px){
+  #sustainability-pillars .card,
+  .content-band .timeline .card { height: var(--card-fix-md); }
+}
+@media (min-width: 992px){
+  #sustainability-pillars .card,
+  .content-band .timeline .card { height: var(--card-fix-lg); }
+}
+
 /* ---- Simple reset ---- */
 *, *::before, *::after{ box-sizing: border-box; }
 html, body{ height:100%; }
@@ -113,7 +160,7 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
 .timeline-wrap{ max-width: 1100px; margin: 18px auto 28px; padding: 0 16px; }
 .timeline{
   display:flex; gap: 16px; align-items: stretch;
-  overflow-x:auto; overflow-y:hidden; padding: 8px 4px 18px;
+  overflow-x:auto; overflow-y:visible; padding: 8px 4px 18px;
   scroll-snap-type: x mandatory; scroll-behavior: smooth;
 }
 .timeline::-webkit-scrollbar{ height:10px; }
@@ -127,6 +174,7 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   transition: transform .18s ease, box-shadow .18s ease;
   opacity: 0; transform: translateY(10px); animation: rise .6s ease both;
 }
+.content-band .timeline .card{ overflow: visible; }
 .card:nth-child(1){ animation-delay: .05s; }
 .card:nth-child(2){ animation-delay: .10s; }
 .card:nth-child(3){ animation-delay: .15s; }
@@ -151,6 +199,72 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
 }
 .card:hover .more, .card:focus-within .more{ max-height: 240px; opacity: 1; transform: translateY(0); }
+/* Option B: cap the reveal and let it scroll inside */
+.content-band .timeline .card .more{
+  max-height: 320px;   /* pick a comfy cap */
+  overflow: auto;      /* inner scroll, not the whole card */
+}
+/* Keep heading static; only the reveal (.more) scrolls */
+.content-band .timeline .card .pad,
+.content-band .timeline .card .title,
+.content-band .timeline .card .summary {
+  overflow: visible !important;
+}
+
+/* (Optional) nicer, thinner scrollbar only inside the reveal */
+.content-band .timeline .card .more{
+  scrollbar-width: thin;
+  scrollbar-color: #cfd8e3 transparent;
+}
+.content-band .timeline .card .more::-webkit-scrollbar{ width: 8px; }
+.content-band .timeline .card .more::-webkit-scrollbar-thumb{
+  background: #cfd8e3; border-radius: 8px;
+}
+.content-band .timeline .card .more::-webkit-scrollbar-track{ background: transparent; }
+
+/* === Timeline: hide heading on hover/focus; show scrolling body === */
+
+/* Smooth transitions for heading + summary */
+.content-band .timeline .card .title,
+.content-band .timeline .card .summary {
+  transition: opacity .25s ease, max-height .25s ease, transform .25s ease;
+  will-change: opacity, transform, max-height;
+}
+
+/* On hover/focus: visually hide the heading + summary */
+.content-band .timeline .card:hover .title,
+.content-band .timeline .card:focus-within .title,
+.content-band .timeline .card:hover .summary,
+.content-band .timeline .card:focus-within .summary {
+  opacity: 0;
+  max-height: 0;          /* collapse their vertical space */
+  transform: translateY(-4px);
+  pointer-events: none;   /* prevent accidental selection */
+}
+
+/* Keep the reveal area open and scrollable (overrides earlier 240px) */
+.content-band .timeline .card:hover .more,
+.content-band .timeline .card:focus-within .more {
+  max-height: 320px;      /* same cap you chose for Option B */
+  opacity: 1;
+  transform: translateY(0);
+  overflow: auto;         /* scroll only inside the body */
+}
+
+/* Optional: also hide the eyebrow (year) on hover/focus */
+/*
+.content-band .timeline .card .eyebrow {
+  transition: opacity .25s ease, max-height .25s ease, transform .25s ease;
+}
+.content-band .timeline .card:hover .eyebrow,
+.content-band .timeline .card:focus-within .eyebrow {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+}
+*/
+
 
 .hint{ text-align:center; color:#4b5563; font-size:14px; margin:4px 0 26px; }
 
