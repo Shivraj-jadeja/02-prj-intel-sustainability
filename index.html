@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">  <!-- JS will flip this to 'rtl' when needed -->
 <head>
-  <meta charset="UTF-8" />
+  <!-- Meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Intel — Sustainability Journey</title>
-  <!-- Cache-busted so you see the latest styles -->
-  <link rel="stylesheet" href="styles.css?v=4">
+
+  <!-- Bootstrap (we'll swap LTR/RTL at runtime) -->
+  <link id="bootstrap-css" rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    integrity="sha384-2h4Z1..." crossorigin="anonymous">
+
+  <!-- Bootstrap Icons (for the three-column headings) -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- Your site styles (keep your existing styles.css; this adds logical props + a11y) -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Bootstrap JS bundle (for Accordion, modal, etc.) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-y05o..." crossorigin="anonymous"></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- HERO -->
   <header class="hero" role="banner">
@@ -39,6 +53,9 @@
       </div>
     </div>
   </header>
+
+  <main id="main" role="main">
+
 
   <!-- MIDDLE BAND (tabs + timeline) — static background (no animation) -->
   <section class="content-band">
@@ -86,7 +103,8 @@
     </section>
 
     <!-- TIMELINE -->
-    <main class="timeline-wrap" id="timeline">
+    <section class="timeline-wrap" id="timeline">
+
       <section class="timeline" aria-label="Intel sustainability timeline">
         <!-- … your 9 cards unchanged … -->
         <!-- CARD 1 -->
@@ -226,8 +244,68 @@
       </section>
 
       <p class="hint">Tip: On desktop, scroll sideways to explore. On phone, cards stack vertically. Hover or focus a card to reveal more.</p>
-    </main>
+    </section>
   </section>
+
+  <!-- New: Sustainability Pillars (three-column) -->
+  <section id="sustainability-pillars" class="py-5">
+    <div class="container">
+      <header class="text-center mb-4">
+        <h2 class="h1 fw-semibold">Sustainability Pillars</h2>
+        <p class="text-muted mb-0">Energy efficiency, responsible sourcing, and circular design—built into every step.</p>
+      </header>
+
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h5 card-title d-flex align-items-center gap-2">
+                <i class="bi bi-lightning-charge" aria-hidden="true"></i>
+                <span>Energy Efficiency</span>
+              </h3>
+              <p class="card-text">Reducing operational energy, optimizing data center loads, and scaling renewable use.</p>
+              <a class="btn btn-outline-primary mt-2" href="#"
+                aria-label="Learn more about Energy Efficiency">Learn more</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h5 card-title d-flex align-items-center gap-2">
+                <i class="bi bi-globe2" aria-hidden="true"></i>
+                <span>Responsible Sourcing</span>
+              </h3>
+              <p class="card-text">Partnering across the supply chain to advance transparency and ethical standards.</p>
+              <a class="btn btn-outline-primary mt-2" href="#"
+                aria-label="Learn more about Responsible Sourcing">Learn more</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="h5 card-title d-flex align-items-center gap-2">
+                <i class="bi bi-recycle" aria-hidden="true"></i>
+                <span>Circular Design</span>
+              </h3>
+              <p class="card-text">Design for repair, reuse, and recyclability to shrink lifecycle footprint.</p>
+              <a class="btn btn-outline-primary mt-2" href="#"
+                aria-label="Learn more about Circular Design">Learn more</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  </main>
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
