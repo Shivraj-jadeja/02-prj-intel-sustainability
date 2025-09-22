@@ -1,5 +1,5 @@
 /* Smooth anchor scrolling + nicer anchor landing */
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; --anim-paused: running; }
 .timeline-wrap { scroll-margin-top: 16px; }
 
 /* ---- Intel-inspired color tokens ---- */
@@ -14,33 +14,32 @@ html { scroll-behavior: smooth; }
   --shadow: 0 6px 20px rgba(0,0,0,.12);
 }
 
-/* Small logical tweaks for RTL */
+/* Pause CSS animations when tab is hidden (JS toggles --anim-paused) */
+* { animation-play-state: var(--anim-paused); }
+
+/* RTL helpers */
 body.rtl .text-start { text-align: end !important; }
 body.rtl .text-end   { text-align: start !important; }
-
-/* Make inline paddings logical on cards if you need it later */
 body.rtl .pad { padding-inline: 16px; padding-block: 14px 18px; }
 
-/* Accessible skip link: hidden until focused */
+/* Accessible skip link */
 .skip-link{
   position: absolute;
-  inset-inline-start: 1rem;     /* logical "left" */
-  inset-block-start: -200px;    /* hide above the viewport */
-  background: #000;
-  color: #fff;
-  padding: .5rem .75rem;
-  border-radius: .5rem;
-  text-decoration: none;
-  z-index: 10000;
+  inset-inline-start: 1rem;
+  inset-block-start: -200px;
+  background: #000; color: #fff;
+  padding: .5rem .75rem; border-radius: .5rem;
+  text-decoration: none; z-index: 10000;
   transition: inset-block-start .2s ease;
 }
-
-/* Show only when keyboard focusing */
-.skip-link:focus,
-.skip-link:focus-visible{
-  inset-block-start: 1rem;      /* slide into view */
+.skip-link:focus, .skip-link:focus-visible{
+  inset-block-start: 1rem;
   outline: 2px solid var(--ring);
 }
+
+/* Simple topbar + language switcher */
+.site-topbar { background: #eef4ff; border-bottom: 1px solid #e6ebf2; }
+.lang-switcher { width: auto; min-width: 160px; }
 
 /* === Strict equal height cards (fixed) === */
 :root{
@@ -49,25 +48,23 @@ body.rtl .pad { padding-inline: 16px; padding-block: 14px 18px; }
   --card-fix-lg: 24rem;
 }
 
-/* Apply a fixed height to both pillar + timeline cards */
 #sustainability-pillars .card,
 .content-band .timeline .card {
   display: flex;
   flex-direction: column;
   height: var(--card-fix-sm);
-  overflow: hidden; /* base: prevent layout shift */
+  overflow: hidden;
 }
 
-/* Ensure inner content can scroll if it overflows */
+/* Inner content scrolling if needed */
 #sustainability-pillars .card .card-body,
 .content-band .timeline .card .pad {
-  min-height: 0;            /* lets child shrink */
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* Pillars: let card text take available space; scroll if overflowing */
 #sustainability-pillars .card .card-text {
   flex: 1 1 auto;
   overflow: auto;
@@ -90,7 +87,7 @@ body.rtl .pad { padding-inline: 16px; padding-block: 14px 18px; }
   .content-band .timeline .card { height: var(--card-fix-lg); }
 }
 
-/* ---- Simple reset ---- */
+/* ---- Reset & base ---- */
 *, *::before, *::after{ box-sizing: border-box; }
 html, body{ height:100%; }
 img{ max-width:100%; display:block; }
@@ -98,8 +95,6 @@ body{
   margin:0;
   font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--ink);
-
-  /* Subtle premium grid background (fixed) */
   background-color: var(--bg);
   background-image:
     radial-gradient(1200px 500px at 10% 10%, #f7fbff 0%, #eef4ff 60%, #eaf1ff 100%),
@@ -109,7 +104,7 @@ body{
   background-attachment: fixed;
 }
 
-/*  HERO */
+/* HERO */
 header.hero{
   color:#fff;
   background: radial-gradient(1200px 500px at 15% 20%, #148be9 0%, var(--intel-blue) 50%, var(--intel-blue-dark) 100%);
@@ -121,7 +116,6 @@ header.hero{
   display:flex; align-items:center; gap: clamp(16px, 4vw, 40px);
 }
 .hero .brand{ flex:0 0 auto; }
-/* Animated SVG sizing + gentle float */
 .hero .brand .animated-intel{ width: clamp(120px, 18vw, 200px); animation: float 6s ease-in-out infinite; }
 .hero .brand .animated-intel svg{ width: 100%; height: auto; display: block; fill: #fff; }
 .hero .copy{ flex: 1 1 auto; min-width: 260px; }
@@ -143,11 +137,8 @@ a.cta:hover{ transform: translateY(-2px); box-shadow: 0 12px 22px rgba(0,0,0,.14
 a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
 .scroll-indicator{ display:inline-block; margin-left:8px; animation: nudge 1.6s ease-in-out infinite; }
 
-/* MIDDLE BAND (static background, no animation) */
-.content-band{
-  background: #eef4ff;
-  padding: 8px 0 0;
-}
+/* MIDDLE BAND */
+.content-band{ background: #eef4ff; padding: 8px 0 0; }
 
 /* TABS */
 .tabs{ max-width: 1100px; margin: 24px auto 12px; padding: 0 16px; }
@@ -188,7 +179,7 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
 .timeline-wrap{ max-width: 1100px; margin: 18px auto 28px; padding: 0 16px; }
 .timeline{
   display:flex; gap: 16px; align-items: stretch;
-  overflow-x:auto; overflow-y:visible; /* allow hover expansion to show */
+  overflow-x:auto; overflow-y:visible;
   padding: 8px 4px 18px;
   scroll-snap-type: x mandatory; scroll-behavior: smooth;
 }
@@ -203,7 +194,7 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   transition: transform .18s ease, box-shadow .18s ease;
   opacity: 0; transform: translateY(10px); animation: rise .6s ease both;
 }
-.content-band .timeline .card{ overflow: visible; } /* let reveal overflow outside the card */
+.content-band .timeline .card{ overflow: visible; }
 .card:nth-child(1){ animation-delay: .05s; }
 .card:nth-child(2){ animation-delay: .10s; }
 .card:nth-child(3){ animation-delay: .15s; }
@@ -228,53 +219,34 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-4px);
   transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
 }
-/* General cards: small reveal on hover (safe default) */
-.card:hover .more, .card:focus-within .more{
-  max-height: 240px; opacity: 1; transform: translateY(0);
-}
+.card:hover .more, .card:focus-within .more{ max-height: 240px; opacity: 1; transform: translateY(0); }
 
-/* === Timeline-specific behavior === */
-/* Only the reveal (.more) scrolls; title stays visible; summary hides on hover */
+/* Timeline-specific: keep title, hide summary, scroll body */
 .content-band .timeline .card .pad,
 .content-band .timeline .card .title,
-.content-band .timeline .card .summary {
-  overflow: visible !important; /* prevent tiny scroll arrows on headings */
-}
+.content-band .timeline .card .summary { overflow: visible !important; }
 
-/* Smooth transitions for summary */
-.content-band .timeline .card .summary {
+.content-band .timeline .card .summary{
   transition: opacity .25s ease, max-height .25s ease, transform .25s ease;
   will-change: opacity, transform, max-height;
 }
-
-/* Hide ONLY the summary on hover/focus; keep TITLE visible */
 .content-band .timeline .card:hover .summary,
-.content-band .timeline .card:focus-within .summary {
-  opacity: 0;
-  max-height: 0;
-  transform: translateY(-4px);
-  pointer-events: none;
+.content-band .timeline .card:focus-within .summary{
+  opacity: 0; max-height: 0; transform: translateY(-4px); pointer-events: none;
 }
-
-/* On hover/focus: open the reveal more and let it scroll inside */
 .content-band .timeline .card:hover .more,
-.content-band .timeline .card:focus-within .more {
-  max-height: 320px;      /* your Option B cap */
-  opacity: 1;
-  transform: translateY(0);
-  overflow: auto;         /* scroll only inside the body */
+.content-band .timeline .card:focus-within .more{
+  max-height: 320px; opacity: 1; transform: translateY(0); overflow: auto;
 }
 
-/* Nicer, thinner scrollbar only inside the reveal */
-.content-band .timeline .card .more{
-  scrollbar-width: thin;
-  scrollbar-color: #cfd8e3 transparent;
-}
+/* Nicer internal scrollbar */
+.content-band .timeline .card .more{ scrollbar-width: thin; scrollbar-color: #cfd8e3 transparent; }
 .content-band .timeline .card .more::-webkit-scrollbar{ width: 8px; }
-.content-band .timeline .card .more::-webkit-scrollbar-thumb{
-  background: #cfd8e3; border-radius: 8px;
-}
+.content-band .timeline .card .more::-webkit-scrollbar-thumb{ background: #cfd8e3; border-radius: 8px; }
 .content-band .timeline .card .more::-webkit-scrollbar-track{ background: transparent; }
+
+/* Perf hint for accordion */
+#locFaq:not(.ready) { contain: style; }
 
 .hint{ text-align:center; color:#4b5563; font-size:14px; margin:4px 0 26px; }
 
@@ -306,7 +278,7 @@ a.cta.invert:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shado
   .tabs .tabs-bar{ grid-template-columns: 1fr; }
 }
 
-/*  ACCESSIBILITY: prefers-reduced-motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   .timeline{ scroll-behavior: auto; }
   .card{ transition: none; animation: none; opacity: 1; transform: none; }
@@ -321,8 +293,17 @@ a.cta.invert:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shado
 @keyframes rise{ from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 @keyframes nudge{ 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
 
-/* Hide pieces of the logo until Anime.js reveals them */
+/* SVG reveal defaults */
 #path10, #path18, #path14, #path16, #path8, #oval-border, #text2177 { opacity: 0; }
 #rect{ transform-origin: 50% 50%; transform-box: fill-box; }
 
+/* Minor component polish */
 #subscribe .form-text { color: #6b7280; }
+#faq .accordion-button { line-height: 1.25; }
+#faq .accordion-body { color: var(--ink); }
+
+/* Render-when-near viewport for timeline cards */
+.content-band .timeline .card{
+  content-visibility: auto;
+  contain-intrinsic-size: 380px 600px;
+}

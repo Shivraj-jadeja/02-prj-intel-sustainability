@@ -1,33 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">  <!-- JS will flip this to 'rtl' when needed -->
+<html lang="en" dir="ltr">
 <head>
   <!-- Meta -->
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Bootstrap (we'll swap LTR/RTL at runtime) -->
+  <title>Intel Sustainability — Student Project Timeline & Resources</title>
+  <meta name="description" content="Explore Intel-inspired sustainability milestones and 2030 goals. Accessible, RTL-ready, mobile-friendly. Subscribe for updates." />
+  <link rel="canonical" href="https://YOUR-LIVE-URL.example" />
+  <meta name="robots" content="index,follow" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="theme-color" content="#0068B5" />
+
+  <!-- Social cards (optional; update if deployed) -->
+  <meta property="og:title" content="Intel Sustainability — Student Project" />
+  <meta property="og:description" content="Timeline, goals, and resources — accessible and RTL-ready." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://YOUR-LIVE-URL.example" />
+  <meta property="og:image" content="https://YOUR-LIVE-URL.example/img/og-banner.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Perf: warm up CDNs -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+
+  <!-- Bootstrap (swapped LTR/RTL at runtime) -->
   <link id="bootstrap-css" rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    integrity="sha384-2h4Z1..." crossorigin="anonymous">
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        crossorigin="anonymous">
 
-  <!-- Bootstrap Icons (for the three-column headings) -->
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <!-- Bootstrap Icons (non-blocking) -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" as="style" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"></noscript>
 
-  <!-- Your site styles (keep your existing styles.css; this adds logical props + a11y) -->
+  <!-- Preload likely LCP image -->
+  <link rel="preload" as="image" href="img/1.jpg" imagesrcset="img/1.jpg" imagesizes="(max-width: 600px) 100vw, 340px" />
+
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Bootstrap JS bundle (for Accordion, modal, etc.) -->
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-y05o..." crossorigin="anonymous"></script>
+  <!-- FAQ structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"What are Intel’s 2030 sustainability goals in plain language?","acceptedAnswer":{"@type":"Answer","text":"Use cleaner energy, reduce emissions across operations and supply chain, conserve and restore water, and design products and processes for reuse and recycling. Progress is published in annual sustainability reporting."}},
+      {"@type":"Question","name":"How do you measure progress toward these goals?","acceptedAnswer":{"@type":"Answer","text":"We track Scope 1–3 greenhouse gas emissions, energy mix, water use and restoration, waste and circularity metrics, and supplier engagement. Data follows the GHG Protocol and is reviewed by third parties."}},
+      {"@type":"Question","name":"Why did the page flip to right-to-left?","acceptedAnswer":{"@type":"Answer","text":"The site auto-detects the page language (for example, Arabic or Hebrew) and switches to right-to-left for readability. We also load Bootstrap’s RTL stylesheet and adjust layout so icons, alignment, and scrolling feel natural."}}
+    ]
+  }
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Topbar with Language Switcher -->
+  <div class="site-topbar">
+    <div class="container d-flex align-items-center justify-content-end gap-2">
+      <label for="langSwitcher" class="visually-hidden">Language</label>
+      <select id="langSwitcher" class="form-select form-select-sm lang-switcher" aria-label="Change language">
+        <option value="en">English</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="es">Español</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="gu">ગુજરાતી (Gujarati)</option>
+        <option value="sa">संस्कृतम् (Sanskrit)</option>
+      </select>
+    </div>
+  </div>
 
   <!-- HERO -->
   <header class="hero" role="banner">
     <div class="container">
       <div class="brand" aria-hidden="true">
-        <!-- Animated Intel logo (Anime.js) -->
+        <!-- Animated Intel logo (Anime.js) — keep IDs exactly as referenced in CSS/JS -->
         <div class="animated-intel" aria-label="Intel logo" role="img">
           <svg xmlns="http://www.w3.org/2000/svg" width="293" height="194" viewBox="0 0 293 194">
             <defs/>
@@ -46,428 +99,696 @@
       </div>
 
       <div class="copy">
-        <h1>Intel's Sustainability Journey</h1>
-        <p>A timeline of key goals and milestones as Intel works toward a lower-carbon,
-          more responsible future in semiconductor design and manufacturing.</p>
-        <a class="cta" href="#timeline">Explore the timeline <span class="scroll-indicator">→</span></a>
+        <h1 data-i18n="hero_title">Intel's Sustainability Journey</h1>
+        <p data-i18n="hero_tagline">A timeline of key goals and milestones as Intel works toward a lower-carbon, more responsible future in semiconductor design and manufacturing.</p>
+        <a class="cta" href="#timeline" aria-label="Explore Intel sustainability timeline section">
+          <span data-i18n="cta_explore">Explore the timeline</span> <span class="scroll-indicator">→</span>
+        </a>
       </div>
     </div>
   </header>
 
   <main id="main" role="main">
+    <!-- MIDDLE BAND (tabs + timeline) -->
+    <section class="content-band">
+      <!-- TABS -->
+      <section class="tabs" aria-label="Sustainability insights">
+        <input type="radio" name="intel-tabs" id="tab-overview" class="tab-radio" checked>
+        <input type="radio" name="intel-tabs" id="tab-goals" class="tab-radio">
+        <input type="radio" name="intel-tabs" id="tab-impact" class="tab-radio">
 
-
-  <!-- MIDDLE BAND (tabs + timeline) — static background (no animation) -->
-  <section class="content-band">
-    <!-- TABS -->
-    <section class="tabs" aria-label="Sustainability insights">
-      <!-- radios FIRST so the CSS can target siblings with ~ -->
-      <input type="radio" name="intel-tabs" id="tab-overview" class="tab-radio" checked>
-      <input type="radio" name="intel-tabs" id="tab-goals" class="tab-radio">
-      <input type="radio" name="intel-tabs" id="tab-impact" class="tab-radio">
-
-      <div class="tabs-bar">
-        <label for="tab-overview" class="tab">Overview</label>
-        <label for="tab-goals" class="tab">2025–2030 Goals</label>
-        <label for="tab-impact" class="tab">Impact</label>
-      </div>
-
-      <div class="panels">
-        <div class="panel panel-overview">
-          <h2 class="panel-title">Overview</h2>
-          <p>
-            Intel’s sustainability work spans energy efficiency, water stewardship, safer materials,
-            and collaboration across its supply chain. This timeline presents the story in a clean, responsive way.
-          </p>
+        <div class="tabs-bar">
+          <label for="tab-overview" class="tab" data-i18n="tab_overview">Overview</label>
+          <label for="tab-goals" class="tab" data-i18n="tab_goals">2025–2030 Goals</label>
+          <label for="tab-impact" class="tab" data-i18n="tab_impact">Impact</label>
         </div>
 
-        <div class="panel panel-goals">
-          <h2 class="panel-title">2025–2030 Goals</h2>
-          <ul>
-            <li>Increase renewable electricity and improve site/data center efficiency.</li>
-            <li>Advance water restoration and responsible chemical management.</li>
-            <li>Engage suppliers on transparency and lower-carbon materials.</li>
-            <li>Support customers with performance-per-watt and thermal best practices.</li>
-          </ul>
-          <p class="panel-note">Tip: Scroll to the <a href="#timeline">timeline</a> to see milestones by year.</p>
+        <div class="panels">
+          <div class="panel panel-overview">
+            <h2 class="panel-title" data-i18n="tab_overview">Overview</h2>
+            <p>
+              Intel’s sustainability work spans energy efficiency, water stewardship, safer materials,
+              and collaboration across its supply chain. This timeline presents the story in a clean, responsive way.
+            </p>
+          </div>
+
+          <div class="panel panel-goals">
+            <h2 class="panel-title" data-i18n="tab_goals">2025–2030 Goals</h2>
+            <ul>
+              <li>Increase renewable electricity and improve site/data center efficiency.</li>
+              <li>Advance water restoration and responsible chemical management.</li>
+              <li>Engage suppliers on transparency and lower-carbon materials.</li>
+              <li>Support customers with performance-per-watt and thermal best practices.</li>
+            </ul>
+            <p class="panel-note">Tip: Scroll to the <a href="#timeline">timeline</a> to see milestones by year.</p>
+          </div>
+
+          <div class="panel panel-impact">
+            <h2 class="panel-title" data-i18n="tab_impact">Impact</h2>
+            <p>
+              Practical choices—like power-aware computing and circularity—scale across millions of devices.
+              Clear guidance and open collaboration help multiply those wins.
+            </p>
+          </div>
         </div>
-
-        <div class="panel panel-impact">
-          <h2 class="panel-title">Impact</h2>
-          <p>
-            Practical choices—like power-aware computing and circularity—scale across millions of devices.
-            Clear guidance and open collaboration help multiply those wins.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section class="timeline-wrap" id="timeline">
-
-      <section class="timeline" aria-label="Intel sustainability timeline">
-        <!-- … your 9 cards unchanged … -->
-        <!-- CARD 1 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/1.jpg" alt="Solar panels and blue sky" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2020</p>
-            <h3 class="title">Renewable Momentum</h3>
-            <p class="summary">Intel expands renewable electricity purchases and sets ambitious 2030 goals.</p>
-            <div class="more">
-              <p>Focus areas include energy efficiency, greenhouse gas reductions, and water stewardship programs across global sites.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 2 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/2.jpg" alt="Modern factory with clean lines" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2021</p>
-            <h3 class="title">Greener Manufacturing</h3>
-            <p class="summary">Pilot projects reduce process emissions and improve material reuse.</p>
-            <div class="more">
-              <p>Supplier collaboration ramps up to track carbon, and design teams prioritize power-efficient chips.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 3 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/3.jpg" alt="Data center racks with cool tones" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2022</p>
-            <h3 class="title">Efficient Computing</h3>
-            <p class="summary">Design guidance helps customers build energy-aware systems at scale.</p>
-            <div class="more">
-              <p>Documentation and reference designs highlight performance-per-watt and thermal best practices.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 4 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/4.jpg" alt="Close-up of silicon wafer" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2023</p>
-            <h3 class="title">Materials & Water</h3>
-            <p class="summary">Progress continues on reclaiming water and sourcing safer chemistries.</p>
-            <div class="more">
-              <p>Sites invest in on-site water restoration and partner on circular material streams.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 5 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/1.jpg" alt="Wind turbines on a ridge" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2024</p>
-            <h3 class="title">Sustainability Summit</h3>
-            <p class="summary">Intel convenes partners to accelerate low-carbon manufacturing.</p>
-            <div class="more">
-              <p>Suppliers, researchers, and policy leaders share roadmaps for next-gen processes and greener fabs.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 6 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/2.jpg" alt="City skyline with efficient lighting" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2025</p>
-            <h3 class="title">Design for Efficiency</h3>
-            <p class="summary">Expanded guidance for platform-level power management and cooling.</p>
-            <div class="more">
-              <p>Open resources demonstrate telemetry-driven savings and thermal design patterns.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 7 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/3.jpg" alt="Servers with cool lighting" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2026</p>
-            <h3 class="title">Lower-Carbon Supply Chain</h3>
-            <p class="summary">Deeper supplier engagement improves transparency and reporting.</p>
-            <div class="more">
-              <p>Shared targets and tools help reduce upstream emissions for silicon and packaging.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 8 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/4.jpg" alt="Macro shot of circuitry" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2027</p>
-            <h3 class="title">Circularity in Focus</h3>
-            <p class="summary">Programs to extend product life and reclaim materials keep growing.</p>
-            <div class="more">
-              <p>From packaging to equipment, more parts are designed for reuse, repair, and recycling.</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- CARD 9 -->
-        <article class="card" tabindex="0">
-          <figure class="media">
-            <img src="img/1.jpg" alt="Sunrise over manufacturing campus" />
-          </figure>
-          <div class="pad">
-            <p class="eyebrow">2030 Goal</p>
-            <h3 class="title">Toward Net Positive</h3>
-            <p class="summary">Intel targets ambitious 2030 objectives across energy, water, and waste.</p>
-            <div class="more">
-              <p>These goals guide ongoing investments in clean energy, water restoration, and sustainable operations worldwide.</p>
-            </div>
-          </div>
-        </article>
       </section>
 
-      <p class="hint">Tip: On desktop, scroll sideways to explore. On phone, cards stack vertically. Hover or focus a card to reveal more.</p>
+      <!-- TIMELINE -->
+      <section class="timeline-wrap" id="timeline">
+        <section class="timeline" aria-label="Intel sustainability timeline">
+
+          <!-- CARD 1 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/1.jpg" alt="Solar panels and blue sky" width="340" height="191" decoding="async" fetchpriority="high" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2020</p>
+              <h3 class="title" data-i18n="c1_title">Renewable Momentum</h3>
+              <p class="summary" data-i18n="c1_sum">Intel expands renewable electricity purchases and sets ambitious 2030 goals.</p>
+              <div class="more">
+                <p data-i18n="c1_body">Focus areas include energy efficiency, greenhouse gas reductions, and water stewardship programs across global sites.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 2 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/2.jpg" alt="Modern factory with clean lines" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2021</p>
+              <h3 class="title" data-i18n="c2_title">Greener Manufacturing</h3>
+              <p class="summary" data-i18n="c2_sum">Pilot projects reduce process emissions and improve material reuse.</p>
+              <div class="more">
+                <p data-i18n="c2_body">Supplier collaboration ramps up to track carbon, and design teams prioritize power-efficient chips.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 3 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/3.jpg" alt="Data center racks with cool tones" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2022</p>
+              <h3 class="title" data-i18n="c3_title">Efficient Computing</h3>
+              <p class="summary" data-i18n="c3_sum">Design guidance helps customers build energy-aware systems at scale.</p>
+              <div class="more">
+                <p data-i18n="c3_body">Documentation and reference designs highlight performance-per-watt and thermal best practices.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 4 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/4.jpg" alt="Close-up of silicon wafer" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2023</p>
+              <h3 class="title" data-i18n="c4_title">Materials & Water</h3>
+              <p class="summary" data-i18n="c4_sum">Progress continues on reclaiming water and sourcing safer chemistries.</p>
+              <div class="more">
+                <p data-i18n="c4_body">Sites invest in on-site water restoration and partner on circular material streams.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 5 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/1.jpg" alt="Wind turbines on a ridge" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2024</p>
+              <h3 class="title" data-i18n="c5_title">Sustainability Summit</h3>
+              <p class="summary" data-i18n="c5_sum">Intel convenes partners to accelerate low-carbon manufacturing.</p>
+              <div class="more">
+                <p data-i18n="c5_body">Suppliers, researchers, and policy leaders share roadmaps for next-gen processes and greener fabs.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 6 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/2.jpg" alt="City skyline with efficient lighting" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2025</p>
+              <h3 class="title" data-i18n="c6_title">Design for Efficiency</h3>
+              <p class="summary" data-i18n="c6_sum">Expanded guidance for platform-level power management and cooling.</p>
+              <div class="more">
+                <p data-i18n="c6_body">Open resources demonstrate telemetry-driven savings and thermal design patterns.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 7 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/3.jpg" alt="Servers with cool lighting" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2026</p>
+              <h3 class="title" data-i18n="c7_title">Lower-Carbon Supply Chain</h3>
+              <p class="summary" data-i18n="c7_sum">Deeper supplier engagement improves transparency and reporting.</p>
+              <div class="more">
+                <p data-i18n="c7_body">Shared targets and tools help reduce upstream emissions for silicon and packaging.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 8 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/4.jpg" alt="Macro shot of circuitry" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2027</p>
+              <h3 class="title" data-i18n="c8_title">Circularity in Focus</h3>
+              <p class="summary" data-i18n="c8_sum">Programs to extend product life and reclaim materials keep growing.</p>
+              <div class="more">
+                <p data-i18n="c8_body">From packaging to equipment, more parts are designed for reuse, repair, and recycling.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 9 -->
+          <article class="card" tabindex="0">
+            <figure class="media">
+              <img src="img/1.jpg" alt="Sunrise over manufacturing campus" width="340" height="191" loading="lazy" decoding="async" />
+            </figure>
+            <div class="pad">
+              <p class="eyebrow">2030 Goal</p>
+              <h3 class="title" data-i18n="c9_title">Toward Net Positive</h3>
+              <p class="summary" data-i18n="c9_sum">Intel targets ambitious 2030 objectives across energy, water, and waste.</p>
+              <div class="more">
+                <p data-i18n="c9_body">These goals guide ongoing investments in clean energy, water restoration, and sustainable operations worldwide.</p>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <p class="hint" data-i18n="timeline_hint">Tip: On desktop, scroll sideways to explore. On phone, cards stack vertically. Hover or focus a card to reveal more.</p>
+      </section>
     </section>
-  </section>
 
-  <!-- New: Sustainability Pillars (three-column) -->
-  <section id="sustainability-pillars" class="py-5">
-    <div class="container">
-      <header class="text-center mb-4">
-        <h2 class="h1 fw-semibold">Sustainability Pillars</h2>
-        <p class="text-muted mb-0">Energy efficiency, responsible sourcing, and circular design—built into every step.</p>
-      </header>
+    <!-- Sustainability Pillars (three-column) -->
+    <section id="sustainability-pillars" class="py-5">
+      <div class="container">
+        <header class="text-center mb-4">
+          <h2 class="h1 fw-semibold" data-i18n="pillars_title">Sustainability Pillars</h2>
+          <p class="text-muted mb-0" data-i18n="pillars_tagline">Energy efficiency, responsible sourcing, and circular design—built into every step.</p>
+        </header>
 
-      <div class="row g-4">
-        <!-- Card 1 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h3 class="h5 card-title d-flex align-items-center gap-2">
-                <i class="bi bi-lightning-charge" aria-hidden="true"></i>
-                <span>Energy Efficiency</span>
-              </h3>
-              <p class="card-text">Reducing operational energy, optimizing data center loads, and scaling renewable use.</p>
-              <a class="btn btn-outline-primary mt-2" href="#"
-                aria-label="Learn more about Energy Efficiency">Learn more</a>
-            </div>
-          </article>
-        </div>
+        <div class="row g-4">
+          <div class="col-12 col-md-6 col-lg-4">
+            <article class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h3 class="h5 card-title d-flex align-items-center gap-2">
+                  <i class="bi bi-lightning-charge" aria-hidden="true"></i>
+                  <span data-i18n="pillar_energy">Energy Efficiency</span>
+                </h3>
+                <p class="card-text" data-i18n="pillar_energy_desc">Reducing operational energy, optimizing data center loads, and scaling renewable use.</p>
+                <a class="btn btn-outline-primary mt-2" href="#" aria-label="Learn more about Energy Efficiency" data-i18n="btn_learn">Learn more</a>
+              </div>
+            </article>
+          </div>
 
-        <!-- Card 2 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h3 class="h5 card-title d-flex align-items-center gap-2">
-                <i class="bi bi-globe2" aria-hidden="true"></i>
-                <span>Responsible Sourcing</span>
-              </h3>
-              <p class="card-text">Partnering across the supply chain to advance transparency and ethical standards.</p>
-              <a class="btn btn-outline-primary mt-2" href="#"
-                aria-label="Learn more about Responsible Sourcing">Learn more</a>
-            </div>
-          </article>
-        </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <article class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h3 class="h5 card-title d-flex align-items-center gap-2">
+                  <i class="bi bi-globe2" aria-hidden="true"></i>
+                  <span data-i18n="pillar_sourcing">Responsible Sourcing</span>
+                </h3>
+                <p class="card-text" data-i18n="pillar_sourcing_desc">Partnering across the supply chain to advance transparency and ethical standards.</p>
+                <a class="btn btn-outline-primary mt-2" href="#" aria-label="Learn more about Responsible Sourcing" data-i18n="btn_learn">Learn more</a>
+              </div>
+            </article>
+          </div>
 
-        <!-- Card 3 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <article class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h3 class="h5 card-title d-flex align-items-center gap-2">
-                <i class="bi bi-recycle" aria-hidden="true"></i>
-                <span>Circular Design</span>
-              </h3>
-              <p class="card-text">Design for repair, reuse, and recyclability to shrink lifecycle footprint.</p>
-              <a class="btn btn-outline-primary mt-2" href="#"
-                aria-label="Learn more about Circular Design">Learn more</a>
-            </div>
-          </article>
+          <div class="col-12 col-md-6 col-lg-4">
+            <article class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h3 class="h5 card-title d-flex align-items-center gap-2">
+                  <i class="bi bi-recycle" aria-hidden="true"></i>
+                  <span data-i18n="pillar_circular">Circular Design</span>
+                </h3>
+                <p class="card-text" data-i18n="pillar_circular_desc">Design for repair, reuse, and recyclability to shrink lifecycle footprint.</p>
+                <a class="btn btn-outline-primary mt-2" href="#" aria-label="Learn more about Circular Design" data-i18n="btn_learn">Learn more</a>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Newsletter Subscription -->
-  <section id="subscribe" class="py-5 bg-body-tertiary">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-8">
-          <h2 class="h3 mb-3">Subscribe to our Sustainability Newsletter</h2>
-          <p id="subscribe-help" class="text-muted">
-            Monthly updates on energy efficiency, responsible sourcing, and circular design.
-          </p>
+    <!-- Newsletter Subscription -->
+    <section id="subscribe" class="py-5 bg-body-tertiary">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <h2 class="h3 mb-3" data-i18n="subscribe_title">Subscribe to our Sustainability Newsletter</h2>
+            <p id="subscribe-help" class="text-muted" data-i18n="subscribe_copy">Monthly updates on energy efficiency, responsible sourcing, and circular design.</p>
 
-          <form id="subscribe-form" class="needs-validation" novalidate aria-describedby="subscribe-help">
-            <div class="row g-3">
-              <div class="col-12 col-md-6">
-                <label for="subName" class="form-label">Full name</label>
-                <input type="text" id="subName" name="name" class="form-control" autocomplete="name" />
-              </div>
+            <form id="subscribe-form" class="needs-validation" novalidate aria-describedby="subscribe-help">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label for="subName" class="form-label" data-i18n="label_name">Full name</label>
+                  <input type="text" id="subName" name="name" class="form-control" autocomplete="name" />
+                </div>
 
-              <div class="col-12 col-md-6">
-                <label for="subEmail" class="form-label">Email <span class="text-danger">*</span></label>
-                <input type="email" id="subEmail" name="email" class="form-control" autocomplete="email"
-                      inputmode="email" required aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We’ll only use your email for newsletter updates.</div>
-                <div class="invalid-feedback">Please enter a valid email address.</div>
-              </div>
+                <div class="col-12 col-md-6">
+                  <label for="subEmail" class="form-label" data-i18n="label_email">Email <span class="text-danger">*</span></label>
+                  <input type="email" id="subEmail" name="email" class="form-control" autocomplete="email" inputmode="email" required aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text" data-i18n="email_help">We’ll only use your email for newsletter updates.</div>
+                  <div class="invalid-feedback" data-i18n="email_invalid">Please enter a valid email address.</div>
+                </div>
 
-              <div class="col-12 col-md-6">
-                <label for="subLang" class="form-label">Preferred language</label>
-                <select id="subLang" name="lang" class="form-select">
-                  <option value="">Auto</option>
-                  <option value="en">English</option>
-                  <option value="ar">العربية (Arabic)</option>
-                  <option value="es">Español</option>
-                </select>
-              </div>
+                <div class="col-12 col-md-6">
+                  <label for="subLang" class="form-label" data-i18n="label_pref_lang">Preferred language</label>
+                  <select id="subLang" name="lang" class="form-select">
+                    <option value="">Auto</option>
+                    <option value="en">English</option>
+                    <option value="ar">العربية (Arabic)</option>
+                    <option value="es">Español</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="sa">संस्कृतम्</option>
+                  </select>
+                </div>
 
-              <div class="col-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="1" id="consent" required>
-                  <label class="form-check-label" for="consent">
-                    I agree to receive emails and understand I can unsubscribe at any time.
-                  </label>
-                  <div class="invalid-feedback">Please agree before subscribing.</div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="consent" required>
+                    <label class="form-check-label" for="consent" data-i18n="consent_copy">
+                      I agree to receive emails and understand I can unsubscribe at any time.
+                    </label>
+                    <div class="invalid-feedback" data-i18n="consent_invalid">Please agree before subscribing.</div>
+                  </div>
+                </div>
+
+                <div class="col-12 d-flex gap-2">
+                  <button class="btn btn-primary" type="submit" data-i18n="btn_subscribe">Subscribe</button>
+                  <button class="btn btn-outline-secondary" type="reset" data-i18n="btn_reset">Reset</button>
                 </div>
               </div>
 
-              <div class="col-12 d-flex gap-2">
-                <button class="btn btn-primary" type="submit">Subscribe</button>
-                <button class="btn btn-outline-secondary" type="reset">Reset</button>
-              </div>
-            </div>
-
-            <!-- Screen-reader friendly status line -->
-            <p id="subscribe-status" class="mt-3 mb-0 visually-hidden" role="status" aria-live="polite"></p>
-          </form>
+              <p id="subscribe-status" class="mt-3 mb-0 visually-hidden" role="status" aria-live="polite"></p>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- FAQ -->
+    <section id="faq" class="py-5">
+      <div class="container">
+        <h2 class="h3 mb-3" data-i18n="faq_title">Frequently Asked Questions</h2>
 
+        <div class="accordion" id="locFaq">
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-q1">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-a1" aria-expanded="true" aria-controls="faq-a1" data-i18n="faq_q1">
+                What are Intel’s 2030 sustainability goals in plain language?
+              </button>
+            </h3>
+            <div id="faq-a1" class="accordion-collapse collapse show" aria-labelledby="faq-q1" data-bs-parent="#locFaq">
+              <div class="accordion-body" data-i18n="faq_a1">
+                In short: use cleaner energy, reduce emissions across operations and supply chain,
+                conserve and restore water, and design products and processes for reuse and recycling.
+                We publish progress in our annual sustainability reporting. <a href="#" class="link-primary">Learn more</a>.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-q2">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-a2" aria-expanded="false" aria-controls="faq-a2" data-i18n="faq_q2">
+                How do you measure progress toward these goals?
+              </button>
+            </h3>
+            <div id="faq-a2" class="accordion-collapse collapse" aria-labelledby="faq-q2" data-bs-parent="#locFaq">
+              <div class="accordion-body" data-i18n="faq_a2">
+                We track Scope 1–3 greenhouse gas emissions, energy mix, water use/restoration,
+                waste and circularity metrics, and supplier engagement. Data follows the GHG Protocol
+                and is reviewed by third parties. Dashboards and summaries appear in our reports.
+                <a href="#" class="link-primary">See the latest</a>.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq-q3">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-a3" aria-expanded="false" aria-controls="faq-a3" data-i18n="faq_q3">
+                Why did the page flip to right-to-left?
+              </button>
+            </h3>
+            <div id="faq-a3" class="accordion-collapse collapse" aria-labelledby="faq-q3" data-bs-parent="#locFaq">
+              <div class="accordion-body" data-i18n="faq_a3">
+                The site auto-detects the page language (e.g., Arabic or Hebrew) and switches to
+                right-to-left for better readability. We also swap in Bootstrap’s RTL stylesheet and
+                adjust layout so icons, alignment, and scrolling feel natural. You can preview layouts
+                using the language picker in the subscription form.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
     <div class="foot-inner">
-      <p class="tagline">Engineering performance that matters — for people and the planet.</p>
-      <a class="cta invert" href="#timeline">Explore Intel Sustainability →</a>
-      <small class="legal">
-        Student project for learning purposes. Design inspired by Intel’s sustainability journey.
-      </small>
+      <p class="tagline" data-i18n="footer_tag">Engineering performance that matters — for people and the planet.</p>
+      <a class="cta invert" href="#timeline"><span data-i18n="cta_explore">Explore the timeline</span> →</a>
+      <small class="legal">Student project for learning purposes. Design inspired by Intel’s sustainability journey.</small>
     </div>
   </footer>
 
   <!-- Anime.js (logo animation) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" defer></script>
   <script>
-    // Logo animation (respects reduced motion)
+    // Logo animation (respects reduced motion). Always reveals even if Anime.js fails.
     window.addEventListener('DOMContentLoaded', () => {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const Intel = { ovalBorder:'#oval-border', iDot:'#rect', i:'#path10', n:'#path18', t:'#path14', e:'#path16', l:'#path8', copy:'#text2177' };
-      if (reduce || typeof anime === 'undefined') {
-        for (const sel of Object.values(Intel)) { const el = document.querySelector(sel); if (el) el.style.opacity = 1; }
-        return;
+      const showStatic = () => { for (const sel of Object.values(Intel)) { const el = document.querySelector(sel); if (el) el.style.opacity = 1; } };
+      if (reduce) { showStatic(); return; }
+      if (typeof anime === 'undefined') { showStatic(); return; }
+      try {
+        const tl = anime.timeline({ duration: 1000, direction: 'alternate', loop: true, easing: 'easeInOutSine' });
+        tl.add({ targets: Intel.iDot, scale: [0,2,1,3,2,1], duration: 2000 })
+          .add({ targets: Intel.i, opacity: [0,1] }, '-=800')
+          .add({ targets: Intel.n, opacity: [0,1] }, '-=700')
+          .add({ targets: Intel.t, opacity: [0,1] }, '-=600')
+          .add({ targets: Intel.e, opacity: [0,1] }, '-=500')
+          .add({ targets: Intel.l, opacity: [0,1] }, '-=400')
+          .add({ targets: Intel.ovalBorder, opacity: [0,1] }, '-=300')
+          .add({ targets: Intel.copy, opacity: [0,1] }, '-=300');
+      } catch {
+        showStatic();
       }
-      const tl = anime.timeline({ duration: 1000, direction: 'alternate', loop: true, easing: 'easeInOutSine' });
-      tl.add({ targets: Intel.iDot, scale: [0,2,1,3,2,1], duration: 2000 })
-        .add({ targets: Intel.i, opacity: [0,1] }, '-=800')
-        .add({ targets: Intel.n, opacity: [0,1] }, '-=700')
-        .add({ targets: Intel.t, opacity: [0,1] }, '-=600')
-        .add({ targets: Intel.e, opacity: [0,1] }, '-=500')
-        .add({ targets: Intel.l, opacity: [0,1] }, '-=400')
-        .add({ targets: Intel.ovalBorder, opacity: [0,1] }, '-=300')
-        .add({ targets: Intel.copy, opacity: [0,1] }, '-=300');
     });
   </script>
 
   <script>
     // Accessible form handling
-    (function () {
+    (function(){
       const form = document.getElementById('subscribe-form');
       const status = document.getElementById('subscribe-status');
       if (!form || !status) return;
-
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         if (!form.checkValidity()) {
           form.classList.add('was-validated');
           status.classList.remove('visually-hidden');
           status.textContent = 'Please fix the form errors and try again.';
           return;
         }
-
-        // Simulated success (swap with your real POST later)
         const data = Object.fromEntries(new FormData(form).entries());
         await new Promise(r => setTimeout(r, 400));
-
         status.classList.remove('visually-hidden');
         status.textContent = `Thanks, ${data.name || 'friend'}! You’re subscribed.`;
-        form.reset();
-        form.classList.remove('was-validated');
+        form.reset(); form.classList.remove('was-validated');
       });
     })();
   </script>
 
   <script>
-    // --- RTL auto-detect + Bootstrap CSS swap ---
+    // --- RTL + Language switcher with simple i18n (no observer loops) ---
     (function () {
       const RTL_LANGS = new Set(['ar','he','fa','ur','ps','ku','dv','ug','sd','syr']);
       const html = document.documentElement;
-      const bootstrapLink = document.getElementById('bootstrap-css'); // already in your <head>
+      const bootstrapLink = document.getElementById('bootstrap-css');
+      const langSwitcher = document.getElementById('langSwitcher');
+      const formPreview = document.getElementById('subLang');
+      const baseHref = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap';
 
-      function applyDir(dir) {
-        if (!bootstrapLink) return;
-        // Flip document direction
+      // Dictionaries: EN (base), AR (rtl), ES, HI, GU, SA
+      const i18n = {
+        en: {
+          hero_title:"Intel's Sustainability Journey",
+          hero_tagline:"A timeline of key goals and milestones as Intel works toward a lower-carbon, more responsible future in semiconductor design and manufacturing.",
+          cta_explore:"Explore the timeline",
+          tab_overview:"Overview", tab_goals:"2025–2030 Goals", tab_impact:"Impact",
+          timeline_hint:"Tip: On desktop, scroll sideways to explore. On phone, cards stack vertically. Hover or focus a card to reveal more.",
+          pillars_title:"Sustainability Pillars",
+          pillars_tagline:"Energy efficiency, responsible sourcing, and circular design—built into every step.",
+          pillar_energy:"Energy Efficiency", pillar_energy_desc:"Reducing operational energy, optimizing data center loads, and scaling renewable use.",
+          pillar_sourcing:"Responsible Sourcing", pillar_sourcing_desc:"Partnering across the supply chain to advance transparency and ethical standards.",
+          pillar_circular:"Circular Design", pillar_circular_desc:"Design for repair, reuse, and recyclability to shrink lifecycle footprint.",
+          btn_learn:"Learn more",
+          subscribe_title:"Subscribe to our Sustainability Newsletter",
+          subscribe_copy:"Monthly updates on energy efficiency, responsible sourcing, and circular design.",
+          label_name:"Full name", label_email:"Email", email_help:"We’ll only use your email for newsletter updates.",
+          email_invalid:"Please enter a valid email address.", label_pref_lang:"Preferred language",
+          consent_copy:"I agree to receive emails and understand I can unsubscribe at any time.", consent_invalid:"Please agree before subscribing.",
+          btn_subscribe:"Subscribe", btn_reset:"Reset",
+          faq_title:"Frequently Asked Questions",
+          faq_q1:"What are Intel’s 2030 sustainability goals in plain language?",
+          faq_q2:"How do you measure progress toward these goals?",
+          faq_q3:"Why did the page flip to right-to-left?",
+          faq_a1:"In short: use cleaner energy, reduce emissions across operations and supply chain, conserve and restore water, and design products and processes for reuse and recycling. We publish progress in our annual sustainability reporting.",
+          faq_a2:"We track Scope 1–3 greenhouse gas emissions, energy mix, water use/restoration, waste and circularity metrics, and supplier engagement. Data follows the GHG Protocol and is reviewed by third parties.",
+          faq_a3:"The site auto-detects the page language (e.g., Arabic or Hebrew) and switches to right-to-left for better readability. We also swap in Bootstrap’s RTL stylesheet and adjust layout so icons, alignment, and scrolling feel natural.",
+          footer_tag:"Engineering performance that matters — for people and the planet.",
+          c1_title:"Renewable Momentum", c1_sum:"Intel expands renewable electricity purchases and sets ambitious 2030 goals.", c1_body:"Focus areas include energy efficiency, greenhouse gas reductions, and water stewardship programs across global sites.",
+          c2_title:"Greener Manufacturing", c2_sum:"Pilot projects reduce process emissions and improve material reuse.", c2_body:"Supplier collaboration ramps up to track carbon, and design teams prioritize power-efficient chips.",
+          c3_title:"Efficient Computing", c3_sum:"Design guidance helps customers build energy-aware systems at scale.", c3_body:"Documentation and reference designs highlight performance-per-watt and thermal best practices.",
+          c4_title:"Materials & Water", c4_sum:"Progress continues on reclaiming water and sourcing safer chemistries.", c4_body:"Sites invest in on-site water restoration and partner on circular material streams.",
+          c5_title:"Sustainability Summit", c5_sum:"Intel convenes partners to accelerate low-carbon manufacturing.", c5_body:"Suppliers, researchers, and policy leaders share roadmaps for next-gen processes and greener fabs.",
+          c6_title:"Design for Efficiency", c6_sum:"Expanded guidance for platform-level power management and cooling.", c6_body:"Open resources demonstrate telemetry-driven savings and thermal design patterns.",
+          c7_title:"Lower-Carbon Supply Chain", c7_sum:"Deeper supplier engagement improves transparency and reporting.", c7_body:"Shared targets and tools help reduce upstream emissions for silicon and packaging.",
+          c8_title:"Circularity in Focus", c8_sum:"Programs to extend product life and reclaim materials keep growing.", c8_body:"From packaging to equipment, more parts are designed for reuse, repair, and recycling.",
+          c9_title:"Toward Net Positive", c9_sum:"Intel targets ambitious 2030 objectives across energy, water, and waste.", c9_body:"These goals guide ongoing investments in clean energy, water restoration, and sustainable operations worldwide."
+        },
+        ar: {
+          hero_title:"رحلة الاستدامة لدى إنتل",
+          hero_tagline:"جدول زمني للأهداف والمعالم بينما تعمل إنتل نحو مستقبل أقل انبعاثًا وأكثر مسؤولية في تصميم وتصنيع أشباه الموصلات.",
+          cta_explore:"استكشاف المخطط الزمني",
+          tab_overview:"نظرة عامة", tab_goals:"أهداف 2025–2030", tab_impact:"الأثر",
+          timeline_hint:"نصيحة: على الكمبيوتر قم بالتمرير أفقيًا للاستكشاف. على الهاتف تصطف البطاقات عموديًا. حرّك المؤشر أو ركّز البطاقة لعرض المزيد.",
+          pillars_title:"ركائز الاستدامة",
+          pillars_tagline:"كفاءة الطاقة والمصادر المسؤولة والتصميم الدائري — ضمن كل خطوة.",
+          pillar_energy:"كفاءة الطاقة", pillar_energy_desc:"تقليل الطاقة التشغيلية، تحسين أحمال مراكز البيانات، وتوسيع استخدام الطاقة المتجددة.",
+          pillar_sourcing:"المصادر المسؤولة", pillar_sourcing_desc:"الشراكة عبر سلسلة التوريد لتعزيز الشفافية والمعايير الأخلاقية.",
+          pillar_circular:"التصميم الدائري", pillar_circular_desc:"تصميم للإصلاح وإعادة الاستخدام وإعادة التدوير لتقليل الأثر طوال دورة الحياة.",
+          btn_learn:"اعرف المزيد",
+          subscribe_title:"اشترك في نشرتنا حول الاستدامة",
+          subscribe_copy:"تحديثات شهرية حول كفاءة الطاقة والمصادر المسؤولة والتصميم الدائري.",
+          label_name:"الاسم الكامل", label_email:"البريد الإلكتروني", email_help:"سنستخدم بريدك فقط لإرسال التحديثات.",
+          email_invalid:"يرجى إدخال بريد إلكتروني صالح.", label_pref_lang:"اللغة المفضلة",
+          consent_copy:"أوافق على تلقي رسائل البريد ويمكنني إلغاء الاشتراك في أي وقت.", consent_invalid:"يرجى الموافقة قبل الاشتراك.",
+          btn_subscribe:"اشتراك", btn_reset:"إعادة ضبط",
+          faq_title:"الأسئلة الشائعة",
+          faq_q1:"ما هي أهداف الاستدامة لعام 2030 بلغة مبسطة؟",
+          faq_q2:"كيف يتم قياس التقدم نحو هذه الأهداف؟",
+          faq_q3:"لماذا انقلب تخطيط الصفحة إلى اليمين-للأيسر؟",
+          faq_a1:"باختصار: استخدام طاقة أنظف، خفض الانبعاثات في العمليات وسلسلة التوريد، الحفاظ على المياه واستعادتها، وتصميم المنتجات والعمليات لإعادة الاستخدام وإعادة التدوير. ننشر التقدم في تقاريرنا السنوية.",
+          faq_a2:"نقيس انبعاثات النطاق 1–3، ومزيج الطاقة، واستخدام المياه واستعادتها، ومقاييس النفايات والدائرية، ومشاركة الموردين. تُراجع البيانات من جهات مستقلة.",
+          faq_a3:"تكتشف الصفحة اللغة تلقائيًا (مثل العربية) وتحوّل الاتجاه لليمين-للأيسر لتحسين القراءة، مع تحميل نسخة RTL من Bootstrap وضبط المحاذاة والتمرير.",
+          footer_tag:"أداء هندسي يصنع الفارق — للناس والكوكب.",
+          c1_title:"زخم الطاقة المتجددة", c1_sum:"توسّع إنتل مشتريات الكهرباء المتجددة وتحدد أهدافًا طموحة لعام 2030.", c1_body:"تشمل مجالات التركيز كفاءة الطاقة وتقليل الغازات الدفيئة وبرامج الحفاظ على المياه عالميًا.",
+          c2_title:"تصنيع أكثر خضرة", c2_sum:"تقلل المشاريع التجريبية انبعاثات العمليات وتحسن إعادة استخدام المواد.", c2_body:"يتزايد التعاون مع الموردين لتتبع الكربون، وتُعطى الأولوية للرقاقات الموفرة للطاقة.",
+          c3_title:"حوسبة فعّالة", c3_sum:"إرشادات التصميم تساعد العملاء على بناء أنظمة واعية بالطاقة على نطاق واسع.", c3_body:"تُبرز الوثائق والتصاميم المرجعية الأداء لكل واط وأفضل ممارسات التبريد.",
+          c4_title:"المواد والمياه", c4_sum:"يتواصل التقدم في استرجاع المياه واختيار كيميائيات أكثر أمانًا.", c4_body:"تستثمر المواقع في استعادة المياه في الموقع وتشارك في مسارات المواد الدائرية.",
+          c5_title:"قمة الاستدامة", c5_sum:"تجمع إنتل الشركاء لتسريع التصنيع منخفض الكربون.", c5_body:"يتشارك الموردون والباحثون وصنّاع السياسات خرائط طريق لعمليات الجيل التالي والمصانع الأكثر خضرة.",
+          c6_title:"تصميم من أجل الكفاءة", c6_sum:"توسيع الإرشادات لإدارة الطاقة والتبريد على مستوى المنصّة.", c6_body:"توضّح الموارد المفتوحة وفورات مدفوعة بالقياسات وأنماط التصميم الحراري.",
+          c7_title:"سلسلة توريد أقل كربونًا", c7_sum:"تعزز مشاركة المورّدين الشفافية وإعداد التقارير.", c7_body:"تساعد الأهداف المشتركة والأدوات في خفض الانبعاثات المنبع للسيليكون والتغليف.",
+          c8_title:"تركيز على الدائرية", c8_sum:"تتنامى برامج إطالة عمر المنتجات واسترجاع المواد.", c8_body:"من التغليف إلى المعدات، يُصمَّم المزيد من الأجزاء لإعادة الاستخدام والإصلاح وإعادة التدوير.",
+          c9_title:"نحو أثر إيجابي صافٍ", c9_sum:"تستهدف إنتل أهدافًا طموحة لعام 2030 عبر الطاقة والمياه والنفايات.", c9_body:"توجّه هذه الأهداف الاستثمارات المستمرة في الطاقة النظيفة واستعادة المياه والعمليات المستدامة عالميًا."
+        },
+        es: {
+          hero_title:"La ruta de sostenibilidad de Intel",
+          hero_tagline:"Una línea de tiempo de metas y logros mientras Intel avanza hacia un futuro con menos carbono y más responsabilidad en el diseño y la fabricación de semiconductores.",
+          cta_explore:"Explorar la línea de tiempo",
+          tab_overview:"Resumen", tab_goals:"Metas 2025–2030", tab_impact:"Impacto",
+          timeline_hint:"Consejo: en escritorio, desplázate horizontalmente. En el móvil, las tarjetas se apilan. Pasa el cursor o enfoca una tarjeta para ver más.",
+          pillars_title:"Pilares de Sostenibilidad",
+          pillars_tagline:"Eficiencia energética, abastecimiento responsable y diseño circular en cada paso.",
+          pillar_energy:"Eficiencia energética", pillar_energy_desc:"Reducir energía operativa, optimizar cargas del centro de datos y ampliar el uso renovable.",
+          pillar_sourcing:"Abastecimiento responsable", pillar_sourcing_desc:"Colaborar en la cadena de suministro para mayor transparencia y estándares éticos.",
+          pillar_circular:"Diseño circular", pillar_circular_desc:"Diseñar para reparar, reutilizar y reciclar para reducir el impacto del ciclo de vida.",
+          btn_learn:"Saber más",
+          subscribe_title:"Suscríbete a nuestro boletín de sostenibilidad",
+          subscribe_copy:"Actualizaciones mensuales sobre eficiencia energética, abastecimiento responsable y diseño circular.",
+          label_name:"Nombre completo", label_email:"Correo electrónico", email_help:"Usaremos tu correo solo para el boletín.",
+          email_invalid:"Introduce un correo válido.", label_pref_lang:"Idioma preferido",
+          consent_copy:"Acepto recibir correos y entiendo que puedo cancelar en cualquier momento.", consent_invalid:"Acepta antes de suscribirte.",
+          btn_subscribe:"Suscribirse", btn_reset:"Restablecer",
+          faq_title:"Preguntas frecuentes",
+          faq_q1:"¿Cuáles son las metas de sostenibilidad 2030 en palabras simples?",
+          faq_q2:"¿Cómo miden el progreso hacia estas metas?",
+          faq_q3:"¿Por qué la página cambió a derecha-a-izquierda?",
+          faq_a1:"En resumen: usar energía más limpia, reducir emisiones en operaciones y cadena de suministro, conservar y restaurar agua, y diseñar productos y procesos para reutilizar y reciclar. Publicamos avances en nuestros informes anuales.",
+          faq_a2:"Medimos emisiones Alcance 1–3, mezcla de energía, uso/restauración de agua, métricas de residuos y circularidad, y participación de proveedores. Los datos siguen el Protocolo GHG y los revisan terceros.",
+          faq_a3:"El sitio detecta el idioma (como árabe) y cambia a derecha-a-izquierda para mejorar la lectura; también cargamos la hoja de estilos RTL de Bootstrap.",
+          footer_tag:"Rendimiento que importa — para las personas y el planeta.",
+          c1_title:"Impulso renovable", c1_sum:"Intel amplía la compra de electricidad renovable y fija ambiciosas metas para 2030.", c1_body:"Áreas de enfoque: eficiencia energética, reducción de GEI y gestión del agua en sitios globales.",
+          c2_title:"Manufactura más verde", c2_sum:"Proyectos piloto reducen emisiones de proceso y mejoran la reutilización de materiales.", c2_body:"La colaboración con proveedores aumenta para rastrear carbono; los diseños priorizan chips eficientes.",
+          c3_title:"Computación eficiente", c3_sum:"Guías de diseño ayudan a crear sistemas conscientes de la energía a gran escala.", c3_body:"Diseños de referencia destacan rendimiento por vatio y buenas prácticas térmicas.",
+          c4_title:"Materiales y agua", c4_sum:"Avances en recuperación de agua y selección de químicos más seguros.", c4_body:"Sitios invierten en restauración de agua y flujos circulares de materiales.",
+          c5_title:"Cumbre de sostenibilidad", c5_sum:"Intel reúne socios para acelerar la fabricación baja en carbono.", c5_body:"Proveedores, investigadores y responsables de políticas comparten hojas de ruta.",
+          c6_title:"Diseño para la eficiencia", c6_sum:"Guías ampliadas para gestión de energía y refrigeración a nivel plataforma.", c6_body:"Recursos abiertos demuestran ahorros basados en telemetría y patrones térmicos.",
+          c7_title:"Cadena de suministro baja en carbono", c7_sum:"Mayor participación de proveedores mejora transparencia y reportes.", c7_body:"Metas y herramientas compartidas reducen emisiones aguas arriba de silicio y empaques.",
+          c8_title:"Enfoque en circularidad", c8_sum:"Programas para extender vida útil y recuperar materiales siguen creciendo.", c8_body:"Más piezas se diseñan para reutilizar, reparar y reciclar.",
+          c9_title:"Hacia impacto positivo neto", c9_sum:"Metas 2030 ambiciosas en energía, agua y residuos.", c9_body:"Estas metas guían inversiones en energía limpia, restauración de agua y operaciones sostenibles."
+        },
+        hi: {
+          hero_title:"इंटेल की सततता यात्रा",
+          hero_tagline:"सेमीकंडक्टर डिज़ाइन और विनिर्माण में कम-कार्बन और ज़िम्मेदार भविष्य की ओर बढ़ते हुए लक्ष्यों व माइलस्टोन की समयरेखा।",
+          cta_explore:"टाइमलाइन देखें",
+          tab_overview:"सारांश", tab_goals:"2025–2030 लक्ष्य", tab_impact:"प्रभाव",
+          timeline_hint:"संकेत: डेस्कटॉप पर क्षैतिज स्क्रोल करें। फ़ोन पर कार्ड ऊपर-नीचे दिखेंगे। होवर/फोकस करने पर अधिक जानकारी।",
+          pillars_title:"सततता के स्तंभ",
+          pillars_tagline:"ऊर्जा दक्षता, ज़िम्मेदार सोर्सिंग और परिपत्र डिज़ाइन — हर कदम पर।",
+          pillar_energy:"ऊर्जा दक्षता", pillar_energy_desc:"संचालन ऊर्जा घटाना, डेटा-सेंटर लोड बेहतर करना और नवीकरणीय ऊर्जा बढ़ाना।",
+          pillar_sourcing:"ज़िम्मेदार सोर्सिंग", pillar_sourcing_desc:"आपूर्ति शृंखला में पारदर्शिता और नैतिक मानक बढ़ाना।",
+          pillar_circular:"परिपत्र डिज़ाइन", pillar_circular_desc:"मरम्मत, पुन: उपयोग और रीसायक्लिंग के लिए डिज़ाइन।",
+          btn_learn:"और जानें",
+          subscribe_title:"हमारे सततता न्यूज़लेटर की सदस्यता लें",
+          subscribe_copy:"ऊर्जा दक्षता, ज़िम्मेदार सोर्सिंग और परिपत्र डिज़ाइन पर मासिक अपडेट।",
+          label_name:"पूरा नाम", label_email:"ई-मेल", email_help:"आपका ई-मेल केवल न्यूज़लेटर के लिए उपयोग होगा।",
+          email_invalid:"कृपया मान्य ई-मेल दर्ज करें।", label_pref_lang:"पसंदीदा भाषा",
+          consent_copy:"मैं ई-मेल प्राप्त करने के लिए सहमत हूँ; कभी भी अनसब्सक्राइब कर सकता/सकती हूँ।", consent_invalid:"सब्सक्राइब करने से पहले सहमति दें।",
+          btn_subscribe:"सब्सक्राइब", btn_reset:"रीसेट",
+          faq_title:"अक्सर पूछे जाने वाले प्रश्न",
+          faq_q1:"सरल भाषा में 2030 के लक्ष्य क्या हैं?",
+          faq_q2:"आप प्रगति कैसे मापते हैं?",
+          faq_q3:"पेज दाएँ-से-बाएँ क्यों हो गया?",
+          faq_a1:"संक्षेप में: स्वच्छ ऊर्जा का उपयोग, संचालन और सप्लाई-चेन में उत्सर्जन घटाना, पानी का संरक्षण/पुनर्स्थापन और पुन: उपयोग/रीसायक्लिंग हेतु डिज़ाइन।",
+          faq_a2:"हम स्कोप 1–3 उत्सर्जन, ऊर्जा मिश्रण, पानी उपयोग/पुनर्स्थापन, कचरा/सर्कुलैरिटी और सप्लायर सहभागिता ट्रैक करते हैं।",
+          faq_a3:"भाषा के आधार पर लेआउट बदलकर पढ़ने में सुविधा देते हैं; अरबी जैसी भाषाओं पर RTL स्टाइलशीट लोड होती है।",
+          footer_tag:"लोगों और ग्रह के लिए मायने रखने वाला प्रदर्शन।",
+          c1_title:"नवीकरणीय ऊर्जा का तेज़ी", c1_sum:"इंटेल नवीकरणीय बिजली ख़रीद बढ़ाता है और 2030 के महत्त्वाकांक्षी लक्ष्य तय करता है।", c1_body:"मुख्य क्षेत्र: ऊर्जा दक्षता, ग्रीनहाउस-गैस कटौती और वैश्विक साइटों पर जल प्रबंधन।",
+          c2_title:"और हरित विनिर्माण", c2_sum:"पायलट प्रोजेक्ट प्रक्रिया-उत्सर्जन घटाते और सामग्री पुन:उपयोग सुधारते हैं।", c2_body:"सप्लायर सहयोग कार्बन ट्रैकिंग बढ़ाता है; डिज़ाइन टीमें ऊर्जा-कुशल चिप्स को प्राथमिकता देती हैं।",
+          c3_title:"कुशल कम्प्यूटिंग", c3_sum:"डिज़ाइन गाइड बड़े पैमाने पर ऊर्जा-सचेत सिस्टम बनाने में मदद करते हैं।", c3_body:"रेफ़रेंस डिज़ाइनों में परफ़ॉर्मेंस-पर-वॉट और थर्मल सर्वोत्तम प्रथाएँ।",
+          c4_title:"सामग्री और जल", c4_sum:"जल पुनर्स्थापन और सुरक्षित रसायनों में प्रगति जारी।", c4_body:"स्थलों पर ऑन-साइट जल परियोजनाएँ और सर्कुलर मैटेरियल स्ट्रीम्स।",
+          c5_title:"सस्टेनेबिलिटी समिट", c5_sum:"लो-कार्बन मैन्युफैक्चरिंग को तेज़ करने हेतु साझेदार एकत्र।", c5_body:"सप्लायर्स-शोधकर्ता-नीति-निर्माता रोडमैप साझा करते हैं।",
+          c6_title:"दक्षता के लिए डिज़ाइन", c6_sum:"प्लेटफ़ॉर्म-स्तरीय पावर मैनेजमेंट और कूलिंग के लिए विस्तृत मार्गदर्शन।", c6_body:"टेलीमेट्री-आधारित बचत और थर्मल पैटर्न दिखाने वाले खुले संसाधन।",
+          c7_title:"कम-कार्बन सप्लाई-चेन", c7_sum:"गहन सप्लायर सहभागिता से पारदर्शिता और रिपोर्टिंग बेहतर।", c7_body:"साझा लक्ष्य और औज़ार सिलिकॉन व पैकेजिंग के अपस्ट्रीम उत्सर्जन घटाते हैं।",
+          c8_title:"परिपत्रता पर फोकस", c8_sum:"उत्पाद जीवन बढ़ाने और सामग्री पुनर्प्राप्ति के कार्यक्रम बढ़ रहे हैं।", c8_body:"पैकेजिंग से उपकरण तक—अधिक हिस्से पुन: उपयोग/मरम्मत/रीसायक्लिंग के लिए डिज़ाइन।",
+          c9_title:"नेट-पॉज़िटिव की ओर", c9_sum:"ऊर्जा-जल-कचरे में 2030 के महत्त्वाकांक्षी लक्ष्य।", c9_body:"स्वच्छ ऊर्जा, जल पुनर्स्थापन और सतत संचालन में निरंतर निवेश।"
+        },
+        gu: {
+          hero_title:"ઇન્ટેલની સસ્ટેનેબિલિટી સફર",
+          hero_tagline:"અર્ધવાહક ડિઝાઇન અને મેન્યુફેક્ચરિંગમાં ઓછી કાર્બન અને જવાબદાર ભવિષ્ય તરફના લક્ષ્યો અને માઈલસ્ટોનની ટાઈમલાઈન.",
+          cta_explore:"ટાઈમલાઈન જુઓ",
+          tab_overview:"ઝાંખી", tab_goals:"2025–2030 લક્ષ્યો", tab_impact:"અસર",
+          timeline_hint:"સૂચન: ડેસ્કટોપ પર આડું સ્ક્રોલ કરો. મોબાઇલમાં કાર્ડ ઊભાં લાગે છે. હૉવર/ફોકસ કરવાથી વધુ વિગતો.",
+          pillars_title:"સસ્ટેનેબિલિટી સ્તંભો",
+          pillars_tagline:"ઊર્જા કાર્યદક્ષતા, જવાબદાર સોર્સિંગ અને સર્ક્યુલર ડિઝાઇન — દરેક પગલે.",
+          pillar_energy:"ઊર્જા કાર્યદક્ષતા", pillar_energy_desc:"ઓપરેશનલ ઊર્જા ઘટાડવી, ડેટા-સેન્ટર લોડ ઑપ્ટિમાઈઝ કરવો અને રિન્યુએબલ વધારવું.",
+          pillar_sourcing:"જવાબદાર સોર્સિંગ", pillar_sourcing_desc:"સપ્લાય ચેઈનમાં પારદર્શિતા અને નૈતિક ધોરણો આગળ ધપાવવું.",
+          pillar_circular:"સર્ક્યુલર ડિઝાઇન", pillar_circular_desc:"મરામત, પુન:ઉપયોગ અને રિસાયક્લિંગ માટે ડિઝાઇન.",
+          btn_learn:"વધુ જાણો",
+          subscribe_title:"અમારા સસ્ટેનેબિલિટી ન્યૂઝલેટર માટે સબસ્ક્રાઈબ કરો",
+          subscribe_copy:"ઊર્જા કાર્યદક્ષતા, જવાબદાર સોર્સિંગ અને સર્ક્યુલર ડિઝાઇન પર માસિક અપડેટ્સ.",
+          label_name:"પૂરું નામ", label_email:"ઇમેલ", email_help:"તમારો ઇમેલ ફક્ત ન્યૂઝલેટર માટે જ ઉપયોગ થશે.",
+          email_invalid:"માન્ય ઇમેલ દાખલ કરો.", label_pref_lang:"પસંદની ભાષા",
+          consent_copy:"હું ઇમેલ મેળવવા સંમત છું અને કોઈ પણ સમયે અનસબસ્ક્રાઈબ કરી શકું છું.", consent_invalid:"સબસ્ક્રિપ્શન પહેલાં સંમતિ આપો.",
+          btn_subscribe:"સબસ્ક્રાઈબ", btn_reset:"રીસેટ",
+          faq_title:"વારંવાર પૂછાતા પ્રશ્નો",
+          faq_q1:"2030ના લક્ષ્યો સરળ ભાષામાં શું છે?",
+          faq_q2:"તમે પ્રગતિ કેવી રીતે માપો છો?",
+          faq_q3:"પેજ જમણી-થી-ડાબી તરફ કેમ ફેરવાયું?",
+          faq_a1:"ટૂંકમાં: સ્વચ્છ ઊર્જાનો ઉપયોગ, ઓપરેશન અને સપ્લાય ચેઈનમાં ઉત્સર્જન ઘટાડવું, પાણીનું સંરક્ષણ/પુન:સ્થાપન અને પુન:ઉપયોગ/રીસાયક્લિંગ માટે ડિઝાઇન.",
+          faq_a2:"અમે સ્કોપ 1–3 ઉત્સર્જન, ઊર્જા મિશ્રણ, પાણી ઉપયોગ/પુન:સ્થાપન, કચરો/સર્ક્યુલેરિટી અને સપ્લાયર એંગેજમેન્ટ ટ્રેક કરીએ છીએ.",
+          faq_a3:"ભાષા અનુસાર લેઆઉટ બદલાય છે; અરબી જેવી ભાષા માટે RTL સ્ટાઈલશીટ લોડ થાય છે.",
+          footer_tag:"લોકો અને ગ્રહ માટે મહત્વનું પ્રદર્શન.",
+          c1_title:"રિન્યુએબલ ગતિ", c1_sum:"ઇન્ટેલ રિન્યુએબલ વીજ ખરીદી વધારે છે અને 2030 માટે મહત્ત્વાકાંક્ષી લક્ષ્યો નક્કી કરે છે.", c1_body:"ઊર્જા કાર્યદક્ષતા, ગ્રીનહાઉસ ગેસ ઘટાડો અને વૈશ્વિક જગ્યાએ જળ સંરક્ષણ કાર્યક્રમો.",
+          c2_title:"વધુ હરિત મેન્યુફેક્ચરિંગ", c2_sum:"પાયલટ પ્રોજેક્ટ પ્રક્રિયા ઉત્સર્જન ઘટાડે છે અને સામગ્રી પુન:ઉપયોગ સુધારે છે.", c2_body:"સપ્લાયર્સ સાથેનું સહકાર કાર્બન ટ્રેકિંગ વધારે છે; ડિઝાઇન ટીમો ઊર્જા-કાર્યક્ષમ ચિપ્સને પ્રાથમિકતા આપે છે.",
+          c3_title:"કાર્યક્ષમ કમ્પ્યુટિંગ", c3_sum:"ડિઝાઇન માર્ગદર્શિકા ઊર્જા-સચેત સિસ્ટમ્સ બનાવવામાં મદદ કરે છે.", c3_body:"રેફરન્સ ડિઝાઇન પરફોર્મન્સ-પર-વૉટ અને થર્મલ શ્રેષ્ઠ પ્રથાઓ દર્શાવે છે.",
+          c4_title:"સામગ્રી અને પાણી", c4_sum:"પાણી પુન:સ્થાપન અને સલામત રસાયણોમાં સતત પ્રગતિ.", c4_body:"સ્થળોએ ઓન-સાઈટ વોટર પ્રોજેક્ટ્સમાં રોકાણ અને સર્ક્યુલર મટિરિયલ ફ્લો.",
+          c5_title:"સસ્ટેનેબિલિટી સમિટ", c5_sum:"લો-કાર્બન મેન્યુફેક્ચરિંગ ઝડપી કરવા ભાગીદારો ભેગા.", c5_body:"સપ્લાયર્સ-શોધક-નીતિનિર્ધારકો રોડમૅપ્સ શેર કરે છે.",
+          c6_title:"કાર્યક્ષમતા માટે ડિઝાઇન", c6_sum:"પ્લેટફોર્મ-સ્તર પાવર મેનેજમેન્ટ અને કૂલિંગ માટે વિસ્તૃત માર્ગદર્શન.", c6_body:"ટેલિમેટ્રી આધારિત બચત અને થર્મલ પેટર્ન બતાવતા ખુલ્લા સ્રોતો.",
+          c7_title:"ઓછું કાર્બન સપ્લાય ચેઇન", c7_sum:"સપ્લાયર ભાગીદારીથી પારદર્શિતા અને રિપોર્ટિંગ સુધરે છે.", c7_body:"શૅર્ડ લક્ષ્યો અને ટૂલ્સ સિલિકોન/પૅકેજિંગના અપસ્ટ્રિમ ઉત્સર્જન ઘટાડે છે.",
+          c8_title:"સર્ક્યુલરિટી પર ધ્યાન", c8_sum:"ઉત્પાદન જીવન વધારવા અને સામગ્રી પુન:પ્રાપ્તિ કાર્યક્રમો વધે છે.", c8_body:"પૅકેજિંગથી ઉપકરણ સુધી — વધુ ભાગો પુન:ઉપયોગ/મરામત/રીસાયકલ માટે ડિઝાઇન.",
+          c9_title:"શુદ્ધ હકારાત્મક અસર તરફ", c9_sum:"ઊર્જા, પાણી અને કચરામાં 2030ના મહત્ત્વાકાંક્ષી લક્ષ્યો.", c9_body:"સ્વચ્છ ઊર્જા, પાણી પુન:સ્થાપન અને ટકાઉ કામગીરીમાં સતત રોકાણ."
+        },
+        sa: {
+          hero_title:"इण्टेलस्य स्थैर्ययात्रा",
+          hero_tagline:"अर्धचालक-रचनानिर्माणयोः दायित्वपूर्ण-न्यूनकार्बन-भविष्ये लक्ष्य-मैलबिन्दूनां समयरेखा।",
+          cta_explore:"समयरेखां पश्य",
+          tab_overview:"संक्षेपः", tab_goals:"लक्ष्याः 2025–2030", tab_impact:"प्रभावः",
+          timeline_hint:"सूचना: सङ्गणके समान्तरेण सञ्चर। दूरतन्त्रे पत्राणि उर्ध्वशः दृश्यन्ते। होवर/केन्द्रे अधिकं दृश्यते।",
+          pillars_title:"स्थैर्यस्य स्तम्भाः",
+          pillars_tagline:"ऊर्जाक्षमता, उत्तरदायी-आहरणम्, च चक्राकार-रचना — सर्वत्र।",
+          pillar_energy:"ऊर्जाक्षमता", pillar_energy_desc:"संक्रियाशक्तेः न्यासः, दत्तकेन्द्रभार-परिमार्जनम्, नवीनीया-ऊर्जाया विस्तारः।",
+          pillar_sourcing:"उत्तरदायी-आहरणम्", pillar_sourcing_desc:"आपूर्ति-शृङ्खलायां पारदर्शितां नीतिमूल्यं च वर्धयामः।",
+          pillar_circular:"चक्राकार-रचना", pillar_circular_desc:"सम्पादन-उपयोग-पुनर्चक्रणार्थं रचना।",
+          btn_learn:"अधिकं ज्ञातुम्",
+          subscribe_title:"स्थैर्यवृत्तपत्रे सदस्यतां गृहाण",
+          subscribe_copy:"ऊर्जाक्षमता, उत्तरदायी-आहरणम्, चक्राकार-रचना इत्यादिषु मासिक-सुध्यः।",
+          label_name:"पूर्णनाम", label_email:"इमेल्", email_help:"इमेल् वृत्तपत्रार्थमेव।",
+          email_invalid:"सम्यक् इमेल् लेखय।", label_pref_lang:"प्रियभाषा",
+          consent_copy:"अहं इमेल्-प्रेषणस्य अनुमतिं ददामि, यदा किमपि निष्कासयितुं शक्नोमि।", consent_invalid:"सदस्यतापूर्वं अनुमतः भव।",
+          btn_subscribe:"सदस्यतां गृहाण", btn_reset:"पुनः स्थापय",
+          faq_title:"सामान्यप्रश्नाः",
+          faq_q1:"सरलभाषायां 2030-लक्ष्याणि किम्?",
+          faq_q2:"लक्ष्येषु प्रगति: कथं मीयते?",
+          faq_q3:"पृष्ठं किमर्थं दक्षिणात्- वामं परिवर्तितम्?",
+          faq_a1:"संक्षेपेण — शुद्ध-ऊर्जाया उपयोजनम्, संचालन-आपूर्ति-शृङ्खलयोः उत्सर्जन-न्यूनता, जलस्य संरक्षणम् पुनर्स्थापनं च, पुनःउपयोग-चक्रणाय रचना।",
+          faq_a2:"वयं Scope 1–3 उत्सर्जनं, ऊर्जामिश्रणम्, जलोपयोग/पुनर्स्थापनम्, अपशिष्ट-चक्रण-सूचिकाः, आपूर्तिकर्तृ-भागीदारी च मियामः।",
+          faq_a3:"भाषानुसारं विन्यासः परिवर्तते; आरबीयादिषु RTL-शैलीपत्त्रं आरोप्यते।",
+          footer_tag:"जनानां ग्रहस्य च हिताय कार्यक्षमः प्रदर्शनः।",
+          c1_title:"नवीनीया-ऊर्जायाः वेगः", c1_sum:"इण्टेल् नवीनीया-विद्युत्-क्रयम् वर्धयति, 2030-लक्ष्यानि स्थापयति।", c1_body:"ऊर्जाक्षमता, हरितगृह-गैस-न्यूनता, वैश्विकस्थानेषु जल-व्यवस्थापनम्।",
+          c2_title:"हरितनिर्माणम्", c2_sum:"पायलट्-योजनाः प्रक्रिया-उत्सर्जनं न्यूनयन्ति, द्रव्य- पुनरुपयोगं वर्धयन्ति।", c2_body:"आपूर्तिकर्तृ-सहकार्येण कार्बन-अनुसरणं, ऊर्जा-क्षम-चिप्-प्राधान्यम्।",
+          c3_title:"दक्ष-गणना", c3_sum:"रचनानिर्देशाः ऊर्जा-सचेत-तन्त्राणां व्यापक-निर्माणे सहायन्ते।", c3_body:"मानक-रचनासु वॉट्-प्रति-प्रदर्शनं तथा ऊष्मा-श्रेष्ठ-अभ्यासाः।",
+          c4_title:"द्रव्यं च जलम्", c4_sum:"जल-पुनर्स्थापनम् सुरक्षित-रसायन-चयनश्च प्रवर्धते।", c4_body:"स्थानेषु जल-परियोजनासु निवेशः चक्रद्रव्य-प्रवाहाः च।",
+          c5_title:"स्थैर्य-समिति", c5_sum:"न्यूनकार्बन-निर्माणं शीघ्रीकर्तुं भागिनः संगच्छन्ते।", c5_body:"आपूर्तिकर्तारः, अन्वेषकाः, नीतिनिर्मातारः च मार्गपत्राणि वहन्ति।",
+          c6_title:"दक्षतायै रूपणम्", c6_sum:"प्लेटफॉर्म-स्तरे शक्ति-व्यवस्थापन-शीतन-निर्देशाः विस्तारिताः।", c6_body:"टेलीमेट्री-आधारित-लाभाः तथा ऊष्मा-रूपण-पैटर्नाः दर्श्यन्ते।",
+          c7_title:"न्यूनकार्बन-आपूर्ति-शृङ्खला", c7_sum:"आपूर्तिकर्तृ-भागीदारी पारदर्शितां प्रतिवेदनं च वर्धयति।", c7_body:"साझा-लक्ष्य-उपकरणैः सिलिकॉन-पैकेजिंग-उत्सर्जनं कमीभवति।",
+          c8_title:"चक्राकारता-केन्द्रितम्", c8_sum:"आयुष्यवृद्धि-द्रव्य-प्रत्यावर्तन-कार्यक्रमाः वर्धन्ते।", c8_body:"पैकिंग-यन्त्रपर्यन्तं भागाः पुनरुपयोग-सम्पादन-चक्रण-योग्याः निर्मीयन्ते।",
+          c9_title:"शुद्ध-सकारात्मक-फलाय", c9_sum:"ऊर्जा-जल-अपशिष्ट क्षेत्रेषु 2030-लक्ष्याणि।", c9_body:"शुद्ध-ऊर्जा, जल-पुनर्स्थापनं, सतत्-परिचालनं च निरन्तर-निवेशैः।"
+        }
+      };
+
+      let currentLang = null;
+
+      function applyDir(dir){
         if (html.getAttribute('dir') !== dir) html.setAttribute('dir', dir);
-        // Swap Bootstrap to RTL build
-        const base = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap';
-        bootstrapLink.href = dir === 'rtl' ? `${base}.rtl.min.css` : `${base}.min.css`;
-        // Toggle a helper class for any custom tweaks
+        const target = dir === 'rtl'
+          ? `${baseHref}.rtl.min.css`
+          : `${baseHref}.min.css`;
+        if (bootstrapLink && bootstrapLink.href !== target) bootstrapLink.href = target;
         document.body.classList.toggle('rtl', dir === 'rtl');
       }
 
-      function setDirByLang(lang) {
-        const code = (lang || '').toLowerCase().split('-')[0];
-        const dir = RTL_LANGS.has(code) ? 'rtl' : 'ltr';
-        applyDir(dir);
+      function translateUI(lang){
+        const dict = i18n[lang] || i18n.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) el.textContent = dict[key];
+        });
       }
 
-      // 1) on load (uses <html lang="...">)
-      setDirByLang(html.lang || 'en');
+      function setLanguage(lang){
+        const base = (lang || 'en').toLowerCase().split('-')[0];
+        if (currentLang === base) return; // no-op if same
+        currentLang = base;
+        html.lang = base;
+        applyDir(RTL_LANGS.has(base) ? 'rtl' : 'ltr');
+        translateUI(base);
+        localStorage.setItem('site_lang', base);
+        if (langSwitcher && langSwitcher.value !== base) langSwitcher.value = base;
+        if (formPreview && formPreview.value !== base) formPreview.value = base;
+      }
 
-      // 2) if the lang attribute changes (e.g., browser translate)
-      new MutationObserver((muts) => {
-        for (const m of muts) if (m.attributeName === 'lang') setDirByLang(html.lang);
-      }).observe(html, { attributes: true });
+      // Init from saved preference or <html lang>
+      setLanguage(localStorage.getItem('site_lang') || html.lang || 'en');
 
-      // 3) optional: let the newsletter language picker preview layout
-      document.getElementById('subLang')?.addEventListener('change', (e) => {
-        const v = e.target.value;
-        if (v) setDirByLang(v);
-      });
+      // Switchers
+      langSwitcher?.addEventListener('change', (e) => setLanguage(e.target.value));
+      formPreview?.addEventListener('change', (e) => setLanguage(e.target.value || html.lang));
     })();
   </script>
-
 </body>
 </html>
