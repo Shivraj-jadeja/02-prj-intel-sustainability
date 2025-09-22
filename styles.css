@@ -14,6 +14,13 @@ html { scroll-behavior: smooth; }
   --shadow: 0 6px 20px rgba(0,0,0,.12);
 }
 
+/* Small logical tweaks for RTL */
+body.rtl .text-start { text-align: end !important; }
+body.rtl .text-end   { text-align: start !important; }
+
+/* Make inline paddings logical on cards if you need it later */
+body.rtl .pad { padding-inline: 16px; padding-block: 14px 18px; }
+
 /* Accessible skip link: hidden until focused */
 .skip-link{
   position: absolute;
@@ -317,3 +324,5 @@ a.cta.invert:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shado
 /* Hide pieces of the logo until Anime.js reveals them */
 #path10, #path18, #path14, #path16, #path8, #oval-border, #text2177 { opacity: 0; }
 #rect{ transform-origin: 50% 50%; transform-box: fill-box; }
+
+#subscribe .form-text { color: #6b7280; }
