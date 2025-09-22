@@ -1,0 +1,80 @@
+{
+  "hero_title": "La trayectoria de sostenibilidad de Intel",
+  "hero_tagline": "Una línea de tiempo de objetivos y logros clave mientras Intel avanza hacia un futuro con menos carbono y más responsabilidad en el diseño y la fabricación de semiconductores.",
+  "cta_explore": "Explorar la línea de tiempo",
+
+  "tab_overview": "Resumen",
+  "tab_goals": "Metas 2025–2030",
+  "tab_impact": "Impacto",
+  "overview_copy": "El trabajo de sostenibilidad de Intel abarca eficiencia energética, gestión del agua, materiales más seguros y colaboración en toda la cadena de suministro. Esta línea de tiempo cuenta la historia de forma clara y adaptable.",
+
+  "timeline_hint": "Consejo: en escritorio, desplázate horizontalmente para explorar. En el móvil, las tarjetas se apilan verticalmente. Pasa el cursor o enfoca una tarjeta para ver más.",
+
+  "pillars_title": "Pilares de sostenibilidad",
+  "pillars_tagline": "Eficiencia energética, abastecimiento responsable y diseño circular—integrados en cada paso.",
+  "pillar_energy": "Eficiencia energética",
+  "pillar_energy_desc": "Reducir la energía operativa, optimizar cargas en centros de datos y escalar el uso de renovables.",
+  "pillar_sourcing": "Abastecimiento responsable",
+  "pillar_sourcing_desc": "Colaboración en la cadena de suministro para impulsar transparencia y estándares éticos.",
+  "pillar_circular": "Diseño circular",
+  "pillar_circular_desc": "Diseñar para reparar, reutilizar y reciclar a fin de reducir la huella durante el ciclo de vida.",
+  "btn_learn": "Más información",
+
+  "subscribe_title": "Suscríbete a nuestro boletín de sostenibilidad",
+  "subscribe_copy": "Actualizaciones mensuales sobre eficiencia energética, abastecimiento responsable y diseño circular.",
+  "label_name": "Nombre completo",
+  "label_email": "Correo electrónico",
+  "email_help": "Usaremos tu correo solo para el boletín.",
+  "email_invalid": "Introduce un correo electrónico válido.",
+  "label_pref_lang": "Idioma preferido",
+  "consent_copy": "Acepto recibir correos y entiendo que puedo cancelar mi suscripción en cualquier momento.",
+  "consent_invalid": "Acepta para poder suscribirte.",
+  "btn_subscribe": "Suscribirse",
+  "btn_reset": "Restablecer",
+
+  "faq_title": "Preguntas frecuentes",
+  "faq_q1": "¿Cuáles son, en términos simples, las metas de sostenibilidad de Intel para 2030?",
+  "faq_a1": "En resumen: usar energía más limpia, reducir emisiones en operaciones y cadena de suministro, conservar y restaurar agua, y diseñar productos y procesos para su reutilización y reciclaje. Publicamos avances en nuestro informe anual.",
+  "faq_q2": "¿Cómo se mide el progreso hacia estas metas?",
+  "faq_a2": "Medimos emisiones de GEI de Alcances 1–3, mezcla energética, uso/restauración de agua, métricas de residuos y circularidad, y participación de proveedores. Los datos siguen el Protocolo GEI y se revisan por terceros.",
+  "faq_q3": "¿Por qué la página cambió a lectura de derecha a izquierda?",
+  "faq_a3": "El sitio detecta el idioma de la página (p. ej., árabe o hebreo) y cambia a derecha-a-izquierda para mejorar la lectura. También cargamos la hoja RTL de Bootstrap y ajustamos el diseño para que los iconos, la alineación y el desplazamiento se sientan naturales.",
+
+  "footer_tag": "Ingeniería de rendimiento que importa — para las personas y el planeta.",
+
+  "c1_title": "Impulso renovable",
+  "c1_sum": "Intel amplía las compras de electricidad renovable y fija metas ambiciosas para 2030.",
+  "c1_body": "Enfoques: eficiencia energética, reducción de GEI y programas de gestión del agua en sitios globales.",
+
+  "c2_title": "Manufactura más verde",
+  "c2_sum": "Proyectos piloto reducen emisiones de proceso y mejoran la reutilización de materiales.",
+  "c2_body": "Aumenta la colaboración con proveedores para rastrear carbono y se priorizan chips eficientes.",
+
+  "c3_title": "Computación eficiente",
+  "c3_sum": "Guías de diseño ayudan a crear sistemas conscientes de la energía a gran escala.",
+  "c3_body": "La documentación y los diseños de referencia resaltan rendimiento por vatio y buenas prácticas térmicas.",
+
+  "c4_title": "Materiales y agua",
+  "c4_sum": "Continúa el progreso en restauración de agua y materiales más seguros.",
+  "c4_body": "Los sitios invierten en restauración hídrica in situ y flujos circulares de materiales.",
+
+  "c5_title": "Cumbre de sostenibilidad",
+  "c5_sum": "Intel reúne a socios para acelerar la manufactura baja en carbono.",
+  "c5_body": "Proveedores, investigadores y responsables de políticas comparten hojas de ruta para procesos de nueva generación y fábricas más verdes.",
+
+  "c6_title": "Diseñar para la eficiencia",
+  "c6_sum": "Guías ampliadas para gestión de energía y refrigeración a nivel plataforma.",
+  "c6_body": "Recursos abiertos muestran ahorros guiados por telemetría y patrones térmicos de diseño.",
+
+  "c7_title": "Cadena de suministro baja en carbono",
+  "c7_sum": "Mayor participación de proveedores mejora transparencia e informes.",
+  "c7_body": "Metas y herramientas compartidas ayudan a reducir emisiones aguas arriba en silicio y empaque.",
+
+  "c8_title": "Enfoque en la circularidad",
+  "c8_sum": "Programas para extender la vida del producto y recuperar materiales siguen creciendo.",
+  "c8_body": "Del empaque al equipo, más piezas se diseñan para reutilización, reparación y reciclaje.",
+
+  "c9_title": "Hacia un impacto neto positivo",
+  "c9_sum": "Intel fija objetivos ambiciosos a 2030 en energía, agua y residuos.",
+  "c9_body": "Estas metas guían inversiones continuas en energía limpia, restauración de agua y operaciones sostenibles en todo el mundo."
+}

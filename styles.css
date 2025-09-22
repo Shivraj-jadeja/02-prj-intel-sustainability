@@ -1,5 +1,10 @@
+/* =========================================================
+   Intel Sustainability — styles.css
+   Modular, RTL-ready, accessible, and performant
+   ========================================================= */
+
 /* Smooth anchor scrolling + nicer anchor landing */
-html { scroll-behavior: smooth; --anim-paused: running; }
+html { scroll-behavior: smooth; }
 .timeline-wrap { scroll-margin-top: 16px; }
 
 /* ---- Intel-inspired color tokens ---- */
@@ -14,80 +19,14 @@ html { scroll-behavior: smooth; --anim-paused: running; }
   --shadow: 0 6px 20px rgba(0,0,0,.12);
 }
 
-/* Pause CSS animations when tab is hidden (JS toggles --anim-paused) */
-* { animation-play-state: var(--anim-paused); }
-
-/* RTL helpers */
-body.rtl .text-start { text-align: end !important; }
-body.rtl .text-end   { text-align: start !important; }
-body.rtl .pad { padding-inline: 16px; padding-block: 14px 18px; }
-
-/* Accessible skip link */
-.skip-link{
-  position: absolute;
-  inset-inline-start: 1rem;
-  inset-block-start: -200px;
-  background: #000; color: #fff;
-  padding: .5rem .75rem; border-radius: .5rem;
-  text-decoration: none; z-index: 10000;
-  transition: inset-block-start .2s ease;
-}
-.skip-link:focus, .skip-link:focus-visible{
-  inset-block-start: 1rem;
-  outline: 2px solid var(--ring);
-}
-
-/* Simple topbar + language switcher */
-.site-topbar { background: #eef4ff; border-bottom: 1px solid #e6ebf2; }
-.lang-switcher { width: auto; min-width: 160px; }
-
-/* === Strict equal height cards (fixed) === */
+/* Equal-height card variables (responsive) */
 :root{
   --card-fix-sm: 20rem;
   --card-fix-md: 22rem;
   --card-fix-lg: 24rem;
 }
 
-#sustainability-pillars .card,
-.content-band .timeline .card {
-  display: flex;
-  flex-direction: column;
-  height: var(--card-fix-sm);
-  overflow: hidden;
-}
-
-/* Inner content scrolling if needed */
-#sustainability-pillars .card .card-body,
-.content-band .timeline .card .pad {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-#sustainability-pillars .card .card-text {
-  flex: 1 1 auto;
-  overflow: auto;
-}
-
-/* Timeline image sizing */
-.content-band .timeline .card .media img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-@media (min-width: 768px){
-  #sustainability-pillars .card,
-  .content-band .timeline .card { height: var(--card-fix-md); }
-}
-@media (min-width: 992px){
-  #sustainability-pillars .card,
-  .content-band .timeline .card { height: var(--card-fix-lg); }
-}
-
-/* ---- Reset & base ---- */
+/* ---- Simple reset ---- */
 *, *::before, *::after{ box-sizing: border-box; }
 html, body{ height:100%; }
 img{ max-width:100%; display:block; }
@@ -95,6 +34,8 @@ body{
   margin:0;
   font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--ink);
+
+  /* Subtle premium grid background (fixed) */
   background-color: var(--bg);
   background-image:
     radial-gradient(1200px 500px at 10% 10%, #f7fbff 0%, #eef4ff 60%, #eaf1ff 100%),
@@ -104,7 +45,35 @@ body{
   background-attachment: fixed;
 }
 
-/* HERO */
+/* Accessible skip link: hidden until focused */
+.skip-link{
+  position: absolute;
+  inset-inline-start: 1rem;     /* logical "left" */
+  inset-block-start: -200px;    /* hide above the viewport */
+  background: #000;
+  color: #fff;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  text-decoration: none;
+  z-index: 10000;
+  transition: inset-block-start .2s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible{
+  inset-block-start: 1rem;      /* slide into view */
+  outline: 2px solid var(--ring);
+}
+
+/* Top utility bar */
+.topbar .form-label { font-size: .9rem; color: var(--muted); }
+.topbar select { min-width: 8rem; }
+
+/* RTL helpers (logical alignment) */
+body.rtl .text-start { text-align: end !important; }
+body.rtl .text-end   { text-align: start !important; }
+body.rtl .pad { padding-inline: 16px; padding-block: 14px 18px; }
+
+/*  HERO */
 header.hero{
   color:#fff;
   background: radial-gradient(1200px 500px at 15% 20%, #148be9 0%, var(--intel-blue) 50%, var(--intel-blue-dark) 100%);
@@ -116,6 +85,7 @@ header.hero{
   display:flex; align-items:center; gap: clamp(16px, 4vw, 40px);
 }
 .hero .brand{ flex:0 0 auto; }
+/* Animated SVG sizing + gentle float */
 .hero .brand .animated-intel{ width: clamp(120px, 18vw, 200px); animation: float 6s ease-in-out infinite; }
 .hero .brand .animated-intel svg{ width: 100%; height: auto; display: block; fill: #fff; }
 .hero .copy{ flex: 1 1 auto; min-width: 260px; }
@@ -135,10 +105,13 @@ a.cta{
 }
 a.cta:hover{ transform: translateY(-2px); box-shadow: 0 12px 22px rgba(0,0,0,.14); }
 a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
-.scroll-indicator{ display:inline-block; margin-left:8px; animation: nudge 1.6s ease-in-out infinite; }
+.scroll-indicator{ display:inline-block; margin-inline-start:8px; animation: nudge 1.6s ease-in-out infinite; }
 
 /* MIDDLE BAND */
-.content-band{ background: #eef4ff; padding: 8px 0 0; }
+.content-band{
+  background: #eef4ff;
+  padding: 8px 0 0;
+}
 
 /* TABS */
 .tabs{ max-width: 1100px; margin: 24px auto 12px; padding: 0 16px; }
@@ -175,17 +148,18 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   background: var(--intel-blue); color: #fff;
 }
 
-/* TIMELINE */
+/* TIMELINE WRAP */
 .timeline-wrap{ max-width: 1100px; margin: 18px auto 28px; padding: 0 16px; }
 .timeline{
   display:flex; gap: 16px; align-items: stretch;
-  overflow-x:auto; overflow-y:visible;
+  overflow-x:auto; overflow-y:visible; /* allow reveal to breathe */
   padding: 8px 4px 18px;
   scroll-snap-type: x mandatory; scroll-behavior: smooth;
 }
 .timeline::-webkit-scrollbar{ height:10px; }
 .timeline::-webkit-scrollbar-thumb{ background:#cfd8e3; border-radius:6px; }
 
+/* CARD BASE */
 .card{
   background: var(--card); border-radius: 16px; border: 1px solid #e6ebf2;
   box-shadow: var(--shadow);
@@ -193,8 +167,10 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   scroll-snap-align: start; overflow: hidden; position: relative;
   transition: transform .18s ease, box-shadow .18s ease;
   opacity: 0; transform: translateY(10px); animation: rise .6s ease both;
+  content-visibility: auto;
+  contain-intrinsic-size: 380px 600px; /* rough placeholder size for perf */
 }
-.content-band .timeline .card{ overflow: visible; }
+.content-band .timeline .card{ overflow: visible; } /* reveal can overflow visually */
 .card:nth-child(1){ animation-delay: .05s; }
 .card:nth-child(2){ animation-delay: .10s; }
 .card:nth-child(3){ animation-delay: .15s; }
@@ -207,8 +183,33 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
 .card:focus-within{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
 .card:hover{ transform: translateY(-4px) scale(1.02); box-shadow: 0 14px 30px rgba(0,0,0,.15); }
 
+/* Equal heights for Pillars + Timeline cards */
+#sustainability-pillars .card,
+.content-band .timeline .card {
+  display: flex;
+  flex-direction: column;
+  height: var(--card-fix-sm);
+}
+
+/* Inner layout for scroll behavior */
+#sustainability-pillars .card .card-body,
+.content-band .timeline .card .pad {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Timeline media (fix image previewing issues) */
 .media{ aspect-ratio: 16 / 9; background: linear-gradient(135deg, #e8f3ff, #d7eaff); }
-.media img{ width:100%; height:100%; object-fit: cover; }
+.media img{
+  width:100%; height:100%;
+  object-fit: cover;
+  display:block;
+  image-rendering: auto;
+}
+
+/* Card content */
 .pad{ padding: 14px 16px 18px; }
 .eyebrow{ margin:0 0 4px; font-weight:700; color: var(--intel-blue-dark); font-size: 12px; letter-spacing:.1em; text-transform: uppercase; }
 .title{ margin:2px 0 6px; font-size: 18px; line-height:1.25; }
@@ -219,34 +220,57 @@ a.cta:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shadow); }
   max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-4px);
   transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
 }
-.card:hover .more, .card:focus-within .more{ max-height: 240px; opacity: 1; transform: translateY(0); }
 
-/* Timeline-specific: keep title, hide summary, scroll body */
+/* General cards default reveal */
+.card:hover .more, .card:focus-within .more{
+  max-height: 240px; opacity: 1; transform: translateY(0);
+}
+
+/* Timeline-specific: title stays, summary hides; only .more scrolls */
 .content-band .timeline .card .pad,
 .content-band .timeline .card .title,
-.content-band .timeline .card .summary { overflow: visible !important; }
+.content-band .timeline .card .summary {
+  overflow: visible !important; /* avoid tiny scroll arrows on headings */
+}
 
-.content-band .timeline .card .summary{
+/* Smooth transitions for summary (hidden on hover) */
+.content-band .timeline .card .summary {
   transition: opacity .25s ease, max-height .25s ease, transform .25s ease;
   will-change: opacity, transform, max-height;
 }
 .content-band .timeline .card:hover .summary,
-.content-band .timeline .card:focus-within .summary{
-  opacity: 0; max-height: 0; transform: translateY(-4px); pointer-events: none;
+.content-band .timeline .card:focus-within .summary {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
 }
+
+/* Open the reveal more on hover/focus and let it scroll inside */
 .content-band .timeline .card:hover .more,
-.content-band .timeline .card:focus-within .more{
-  max-height: 320px; opacity: 1; transform: translateY(0); overflow: auto;
+.content-band .timeline .card:focus-within .more {
+  max-height: 320px;      /* comfy cap */
+  opacity: 1;
+  transform: translateY(0);
+  overflow: auto;         /* scroll only inside the body */
 }
 
-/* Nicer internal scrollbar */
-.content-band .timeline .card .more{ scrollbar-width: thin; scrollbar-color: #cfd8e3 transparent; }
-.content-band .timeline .card .more::-webkit-scrollbar{ width: 8px; }
-.content-band .timeline .card .more::-webkit-scrollbar-thumb{ background: #cfd8e3; border-radius: 8px; }
-.content-band .timeline .card .more::-webkit-scrollbar-track{ background: transparent; }
+/* Pillars: let card text take available space; scroll if overflowing */
+#sustainability-pillars .card .card-text {
+  flex: 1 1 auto;
+  overflow: auto;
+}
 
-/* Perf hint for accordion */
-#locFaq:not(.ready) { contain: style; }
+/* Nicer, thinner scrollbar only inside the reveal */
+.content-band .timeline .card .more{
+  scrollbar-width: thin;
+  scrollbar-color: #cfd8e3 transparent;
+}
+.content-band .timeline .card .more::-webkit-scrollbar{ width: 8px; }
+.content-band .timeline .card .more::-webkit-scrollbar-thumb{
+  background: #cfd8e3; border-radius: 8px;
+}
+.content-band .timeline .card .more::-webkit-scrollbar-track{ background: transparent; }
 
 .hint{ text-align:center; color:#4b5563; font-size:14px; margin:4px 0 26px; }
 
@@ -277,8 +301,16 @@ a.cta.invert:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shado
   .hero .copy{ max-width: 700px; }
   .tabs .tabs-bar{ grid-template-columns: 1fr; }
 }
+@media (min-width: 768px){
+  #sustainability-pillars .card,
+  .content-band .timeline .card { height: var(--card-fix-md); }
+}
+@media (min-width: 992px){
+  #sustainability-pillars .card,
+  .content-band .timeline .card { height: var(--card-fix-lg); }
+}
 
-/* Reduced motion */
+/*  ACCESSIBILITY: prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce){
   .timeline{ scroll-behavior: auto; }
   .card{ transition: none; animation: none; opacity: 1; transform: none; }
@@ -293,17 +325,11 @@ a.cta.invert:focus{ outline:none; box-shadow: 0 0 0 4px var(--ring), var(--shado
 @keyframes rise{ from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 @keyframes nudge{ 0%,100%{transform:translateX(0)} 50%{transform:translateX(4px)} }
 
-/* SVG reveal defaults */
+/* Hide pieces of the logo until Anime.js reveals them */
 #path10, #path18, #path14, #path16, #path8, #oval-border, #text2177 { opacity: 0; }
 #rect{ transform-origin: 50% 50%; transform-box: fill-box; }
 
-/* Minor component polish */
+/* Forms & FAQ polish */
 #subscribe .form-text { color: #6b7280; }
 #faq .accordion-button { line-height: 1.25; }
 #faq .accordion-body { color: var(--ink); }
-
-/* Render-when-near viewport for timeline cards */
-.content-band .timeline .card{
-  content-visibility: auto;
-  contain-intrinsic-size: 380px 600px;
-}
